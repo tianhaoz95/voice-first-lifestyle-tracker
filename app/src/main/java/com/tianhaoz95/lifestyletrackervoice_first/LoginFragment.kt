@@ -10,6 +10,9 @@ import androidx.navigation.fragment.findNavController
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.tianhaoz95.lifestyletrackervoice_first.databinding.FragmentLoginBinding
 
 /**
@@ -19,7 +22,7 @@ import com.tianhaoz95.lifestyletrackervoice_first.databinding.FragmentLoginBindi
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
-
+    private lateinit var auth: FirebaseAuth
     private val binding get() = _binding!!
 
     private val signInLauncher = registerForActivityResult(FirebaseAuthUIActivityResultContract()) {
@@ -43,6 +46,19 @@ class LoginFragment : Fragment() {
             .setAvailableProviders(providers)
             .build()
         signInLauncher.launch(signInIntent)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        auth = Firebase.auth
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        }
     }
 
     override fun onCreateView(
