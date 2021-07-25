@@ -7,13 +7,16 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.tianhaoz95.lifestyletrackervoice_first.FirstFragment"
+        android:name="com.tianhaoz95.lifestyletrackervoice_first.LoginFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_login">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_errorFragment"
+            app:destination="@id/errorFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -23,6 +26,14 @@
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/errorFragment"
+        android:name="com.tianhaoz95.lifestyletrackervoice_first.ErrorFragment"
+        android:label="ErrorFragment" >
+        <action
+            android:id="@+id/action_errorFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
 </navigation>

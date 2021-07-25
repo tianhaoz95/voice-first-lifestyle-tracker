@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "562153564462",
+    "project_id": "voice-first-lifestyle-tracker",
+    "storage_bucket": "voice-first-lifestyle-tracker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:562153564462:android:71e2b6f4393333550c32bf",
+        "android_client_info": {
+          "package_name": "com.tianhaoz95.lifestyletrackervoice_first"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "562153564462-lb5bepqca4vcfeltmrkbckt4nir64a01.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY7qR49kN9eCYBvSwwv8wJAUMS9WSh1Yk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "562153564462-lb5bepqca4vcfeltmrkbckt4nir64a01.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
