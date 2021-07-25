@@ -1,11 +1,13 @@
 package com.tianhaoz95.lifestyletrackervoice_first
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.tianhaoz95.lifestyletrackervoice_first.databinding.FragmentSecondBinding
 
 /**
@@ -33,6 +35,7 @@ class SecondFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonSecond.setOnClickListener {
+            Firebase.auth.signOut()
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
     }
