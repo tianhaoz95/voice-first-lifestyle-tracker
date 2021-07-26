@@ -23,10 +23,8 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,6 +33,14 @@ class HomeFragment : Fragment() {
         binding.buttonSecond.setOnClickListener {
             Firebase.auth.signOut()
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+        }
+
+        binding.buttonSettings.setOnClickListener {
+            findNavController().navigate(R.id.action_SecondFragment_to_settingsFragment)
+        }
+
+        binding.buttonAdd.setOnClickListener {
+            findNavController().navigate(R.id.action_SecondFragment_to_selectFragment)
         }
     }
 

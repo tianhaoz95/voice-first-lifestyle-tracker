@@ -27,13 +27,47 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_to_selectFragment"
+            app:destination="@id/selectFragment" />
     </fragment>
     <fragment
         android:id="@+id/errorFragment"
         android:name="com.tianhaoz95.lifestyletrackervoice_first.ErrorFragment"
-        android:label="ErrorFragment" >
+        android:label="ErrorFragment"
+        tools:layout="@layout/fragment_error">
         <action
             android:id="@+id/action_errorFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.tianhaoz95.lifestyletrackervoice_first.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_settingsFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectFragment"
+        android:name="com.tianhaoz95.lifestyletrackervoice_first.SelectFragment"
+        android:label="SelectFragment"
+        tools:layout="@layout/fragment_select">
+        <action
+            android:id="@+id/action_selectFragment_to_addFragment"
+            app:destination="@id/addFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.tianhaoz95.lifestyletrackervoice_first.AddFragment"
+        android:label="AddFragment"
+        tools:layout="@layout/fragment_add">
+        <action
+            android:id="@+id/action_addFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
     </fragment>
 </navigation>
