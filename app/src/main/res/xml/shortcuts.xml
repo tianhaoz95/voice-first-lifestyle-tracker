@@ -1,12 +1,38 @@
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
-    <capability android:name="actions.intent.GET_THING">
+    <!--
+        This is for generic queries like "add a cup of coffee" which
+        is likely requested by the user yet will need more processing
+        at the app end since the name can be pretty arbitrary.
+
+        For more details about this intent, see:
+        https://developers.google.com/assistant/app/reference/built-in-intents/common/create-thing
+    -->
+    <capability android:name="actions.intent.CREATE_THING">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetPackage="com.tianhaoz95.lifestyletrackervoice_first"
-            android:targetClass="com.tianhaoz95.lifestyletrackervoice_first.MainActivity">
+            android:targetClass="com.tianhaoz95.lifestyletrackervoice_first.AddActivity"
+            android:targetPackage="com.tianhaoz95.lifestyletrackervoice_first">
             <parameter
                 android:name="thing.name"
-                android:key="q"/>
+                android:key="name" />
+        </intent>
+    </capability>
+    <!--
+        This is for users that are more familiar with the health tracking
+        features. For example, queries like "Record that I had a cup of
+        coffee" will trigger this intent.
+
+        For more details about this intent, see:
+        https://developers.google.com/assistant/app/reference/built-in-intents/health-and-fitness/record-food-observation
+    -->
+    <capability android:name="actions.intent.RECORD_FOOD_OBSERVATION">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.tianhaoz95.lifestyletrackervoice_first.AddActivity"
+            android:targetPackage="com.tianhaoz95.lifestyletrackervoice_first">
+            <parameter
+                android:name="foodObservation.aboutFood.name"
+                android:key="name" />
         </intent>
     </capability>
 </shortcuts>

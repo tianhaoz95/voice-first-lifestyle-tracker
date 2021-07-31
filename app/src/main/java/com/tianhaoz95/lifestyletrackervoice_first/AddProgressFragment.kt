@@ -35,6 +35,9 @@ class AddProgressFragment : Fragment() {
         binding.buttonFirst.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
+
+        var createItemName = activity?.intent?.extras?.getString("name")
+        binding.textviewFirst.text = createItemName
     }
 
     override fun onDestroyView() {
