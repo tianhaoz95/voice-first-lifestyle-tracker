@@ -1,49 +1,39 @@
 package com.tianhaoz95.lifestyletrackervoice_first
 
-import android.content.Intent
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.tianhaoz95.lifestyletrackervoice_first.databinding.FragmentHomeBinding
+import com.tianhaoz95.lifestyletrackervoice_first.databinding.FragmentAddResultBinding
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class HomeFragment : Fragment() {
+class AddResultFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentAddResultBinding? = null
 
+    // This property is only valid between onCreateView and
+    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+    ): View? {
+
+        _binding = FragmentAddResultBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonSecond.setOnClickListener {
-            Firebase.auth.signOut()
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-        }
-
-        binding.buttonSettings.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_settingsFragment)
-        }
-
-        binding.buttonAdd.setOnClickListener {
-            // findNavController().navigate(R.id.action_SecondFragment_to_selectFragment)
-            val intent = Intent(context, AddActivity::class.java)
-            context?.startActivity(intent)
         }
     }
 
