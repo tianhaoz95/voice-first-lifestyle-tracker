@@ -2,31 +2,31 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    android:id="@+id/nav_home"
+    app:startDestination="@id/AddProgressFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
+        android:id="@+id/AddProgressFragment"
         android:name="com.tianhaoz95.lifestyletrackervoice_first.LoginFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_login">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/AddResultFragment" />
         <action
             android:id="@+id/action_FirstFragment_to_errorFragment"
             app:destination="@id/errorFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
+        android:id="@+id/AddResultFragment"
         android:name="com.tianhaoz95.lifestyletrackervoice_first.HomeFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_home">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            app:destination="@id/AddProgressFragment" />
         <action
             android:id="@+id/action_SecondFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
@@ -41,7 +41,7 @@
         tools:layout="@layout/fragment_error">
         <action
             android:id="@+id/action_errorFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            app:destination="@id/AddProgressFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -50,24 +50,11 @@
         tools:layout="@layout/fragment_settings">
         <action
             android:id="@+id/action_settingsFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/AddResultFragment" />
     </fragment>
     <fragment
         android:id="@+id/selectFragment"
         android:name="com.tianhaoz95.lifestyletrackervoice_first.SelectFragment"
         android:label="SelectFragment"
-        tools:layout="@layout/fragment_select">
-        <action
-            android:id="@+id/action_selectFragment_to_addFragment"
-            app:destination="@id/addFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/addFragment"
-        android:name="com.tianhaoz95.lifestyletrackervoice_first.AddFragment"
-        android:label="AddFragment"
-        tools:layout="@layout/fragment_add">
-        <action
-            android:id="@+id/action_addFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_select"/>
 </navigation>

@@ -1,5 +1,6 @@
 package com.tianhaoz95.lifestyletrackervoice_first
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +25,8 @@ class SelectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.buttonConfirmAdd.setOnClickListener {
-            findNavController().navigate(R.id.action_selectFragment_to_addFragment)
+            val intent = Intent(context, AddActivity::class.java)
+            context?.startActivity(intent)
         }
     }
 

@@ -41,9 +41,7 @@ class HomeFragment : Fragment() {
         }
 
         binding.buttonAdd.setOnClickListener {
-            // findNavController().navigate(R.id.action_SecondFragment_to_selectFragment)
-            val intent = Intent(context, AddActivity::class.java)
-            context?.startActivity(intent)
+            findNavController().navigate(R.id.action_SecondFragment_to_selectFragment)
         }
     }
 
