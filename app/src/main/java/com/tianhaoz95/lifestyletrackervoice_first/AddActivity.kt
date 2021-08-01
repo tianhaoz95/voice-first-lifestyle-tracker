@@ -1,13 +1,9 @@
 package com.tianhaoz95.lifestyletrackervoice_first
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.tianhaoz95.lifestyletrackervoice_first.databinding.ActivityAddBinding
+import com.tianhaoz95.lifestyletrackervoice_first.matcher.DescriptionToCategoryConverter
 
 class AddActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddBinding
