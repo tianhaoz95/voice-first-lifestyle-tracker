@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.tianhaoz95.lifestyletrackervoice_first.databinding.FragmentAddProgressBinding
 import com.tianhaoz95.lifestyletrackervoice_first.matcher.DescriptionToCategoryConverter
 import com.tianhaoz95.lifestyletrackervoice_first.matcher.IntakeItemCategory
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -45,6 +48,11 @@ class AddProgressFragment : Fragment() {
         val category: IntakeItemCategory = _converter.convert(createItemName)
         binding.textviewFirst.text = createItemName
         binding.textView5.text = category.toString()
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            delay(3000)
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        }
     }
 
     override fun onDestroyView() {

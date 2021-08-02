@@ -1,12 +1,14 @@
 <resources>
     <string name="app_name">Lifestyle Tracker (Voice-first)</string>
     <string name="action_settings">Settings</string>
-    <string name="first_fragment_label">First Fragment</string>
+    <string name="add_item_category_placeholder">Getting item category...</string>
+    <string name="add_item_details_placeholder">Getting item details...</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="sign_out_btn_label">Sign out</string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_add">AddActivity</string>
     <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="finish">Done!</string>
+    <string name="finish_message">The activity has been recorded.</string>
 </resources>
