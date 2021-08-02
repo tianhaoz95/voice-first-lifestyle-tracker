@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/AddProgressFragment"
         android:name="com.tianhaoz95.lifestyletrackervoice_first.AddProgressFragment"
-        android:label="@string/first_fragment_label"
+        android:label="@string/add_item_category_placeholder"
         tools:layout="@layout/fragment_add_progress">
 
         <action

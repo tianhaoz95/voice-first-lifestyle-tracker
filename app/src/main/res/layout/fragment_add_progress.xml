@@ -7,7 +7,7 @@
     tools:context=".AddProgressFragment">
 
     <TextView
-        android:id="@+id/textview_first"
+        android:id="@+id/textview_add_item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_item_category_placeholder"
@@ -18,12 +18,12 @@
         app:layout_constraintVertical_bias="0.19999999" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textview_add_item_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/add_item_details_placeholder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_first" />
+        app:layout_constraintTop_toBottomOf="@+id/textview_add_item_title" />
 </androidx.constraintlayout.widget.ConstraintLayout>

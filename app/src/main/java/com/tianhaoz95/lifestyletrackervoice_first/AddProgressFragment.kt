@@ -22,36 +22,30 @@ class AddProgressFragment : Fragment() {
     private var _converter: DescriptionToCategoryConverter =
         DescriptionToCategoryConverter()
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding =
-            FragmentAddProgressBinding.inflate(inflater, container, false)
+            FragmentAddProgressBinding.inflate(
+                inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-        }
-
         var createItemName = activity?.intent?.extras?.getString("name")
         val category: IntakeItemCategory = _converter.convert(createItemName)
-        binding.textviewFirst.text = createItemName
-        binding.textView5.text = category.toString()
+        binding.textviewAddItemTitle.text = createItemName
+        binding.textviewAddItemDescription.text = category.toString()
 
         viewLifecycleOwner.lifecycleScope.launch {
             delay(3000)
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            findNavController().navigate(
+                R.id.action_FirstFragment_to_SecondFragment)
         }
     }
 
