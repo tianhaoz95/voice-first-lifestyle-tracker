@@ -1,4 +1,4 @@
-package com.tianhaoz95.lifestyletrackervoice_first.matcher
+package com.tianhaoz95.lifestyletrackervoice_first.types
 
 enum class IntakeItemCategory {
     Water,

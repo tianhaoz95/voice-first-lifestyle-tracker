@@ -1,4 +1,4 @@
-package com.tianhaoz95.lifestyletrackervoice_first
+package com.tianhaoz95.lifestyletrackervoice_first.activities.record
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

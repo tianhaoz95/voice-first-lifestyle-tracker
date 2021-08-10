@@ -3,6 +3,7 @@
     package="com.tianhaoz95.lifestyletrackervoice_first">
 
     <application
+        android:name=".CustomApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -10,12 +11,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LifestyleTrackerVoicefirst">
         <activity
-            android:name=".AddActivity"
+            android:name=".activities.report.ShowReportActivity"
+            android:exported="true"
+            android:label="@string/title_activity_show_report"
+            android:theme="@style/Theme.LifestyleTrackerVoicefirst.NoActionBar" />
+        <activity
+            android:name=".activities.authentication.AuthenticationActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.record.AddActivity"
             android:exported="true"
             android:label="@string/title_activity_add"
             android:theme="@style/Theme.LifestyleTrackerVoicefirst.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.main.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.LifestyleTrackerVoicefirst.NoActionBar">
             <intent-filter>

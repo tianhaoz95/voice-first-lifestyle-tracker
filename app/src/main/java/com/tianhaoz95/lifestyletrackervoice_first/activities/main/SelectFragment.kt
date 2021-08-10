@@ -1,4 +1,4 @@
-package com.tianhaoz95.lifestyletrackervoice_first
+package com.tianhaoz95.lifestyletrackervoice_first.activities.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import com.tianhaoz95.lifestyletrackervoice_first.activities.record.AddActivity
 import com.tianhaoz95.lifestyletrackervoice_first.databinding.FragmentSelectBinding
 
 class SelectFragment : Fragment() {

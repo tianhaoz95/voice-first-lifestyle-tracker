@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/AddProgressFragment"
-        android:name="com.tianhaoz95.lifestyletrackervoice_first.AddProgressFragment"
+        android:name="com.tianhaoz95.lifestyletrackervoice_first.activities.record.AddProgressFragment"
         android:label="@string/add_item_category_placeholder"
         tools:layout="@layout/fragment_add_progress">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/AddResultFragment"
-        android:name="com.tianhaoz95.lifestyletrackervoice_first.AddResultFragment"
+        android:name="com.tianhaoz95.lifestyletrackervoice_first.activities.record.AddResultFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_add_result">
 

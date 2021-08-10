@@ -12,8 +12,28 @@
     </string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="sign_out_btn_label">Sign out</string>
+    <string name="sign_in_btn_label">Sign in</string>
     <string name="title_activity_add">AddActivity</string>
     <string name="next">Next</string>
     <string name="finish">Done!</string>
     <string name="finish_message">The activity has been recorded.</string>
+    <!-- Button labels -->
+    <string name="navigate_to_reports_button_label">
+        Reports
+    </string>
+    <!-- Error messages -->
+    <string name="uid_not_exist">
+        The UID of the current user is not found.
+    </string>
+    <string name="no_record_information_found_in_intent">
+        No record information found in the intent.
+    </string>
+    <string name="title_activity_show_report">ShowReportActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s
+    </string>
 </resources>

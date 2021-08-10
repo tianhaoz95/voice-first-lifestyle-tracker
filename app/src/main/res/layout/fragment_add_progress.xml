@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddProgressFragment">
+    tools:context=".activities.record.AddProgressFragment">
 
     <TextView
         android:id="@+id/textview_add_item_title"

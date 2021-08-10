@@ -1,14 +1,14 @@
-package com.tianhaoz95.lifestyletrackervoice_first
+package com.tianhaoz95.lifestyletrackervoice_first.activities.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.tianhaoz95.lifestyletrackervoice_first.databinding.FragmentLoginBinding
+import com.tianhaoz95.lifestyletrackervoice_first.databinding.FragmentSettingsBinding
 
-class ErrorFragment : Fragment() {
-    private var _binding: FragmentLoginBinding? = null
+class SettingsFragment : Fragment() {
+    private var _binding: FragmentSettingsBinding? = null
 
     private val binding get() = _binding!!
 
@@ -16,7 +16,7 @@ class ErrorFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
