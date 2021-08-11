@@ -15,8 +15,4 @@ class AddActivity : AppCompatActivity() {
         binding = ActivityAddBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return super.onSupportNavigateUp()
-    }
 }

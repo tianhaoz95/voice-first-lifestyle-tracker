@@ -35,4 +35,21 @@
                 android:key="name" />
         </intent>
     </capability>
+    <!--
+        This is for users to check the current intake status. For example,
+        queries like "Show my water intake" will trigger this intent.
+
+        For more details, see:
+        https://developers.google.com/assistant/app/reference/built-in-intents/health-and-fitness/get-food-observation#example-queries
+    -->
+    <capability android:name="actions.intent.GET_FOOD_OBSERVATION">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.tianhaoz95.lifestyletrackervoice_first.activities.report.ShowReportActivity"
+            android:targetPackage="com.tianhaoz95.lifestyletrackervoice_first">
+            <parameter
+                android:name="foodObservation.aboutNutrient.name"
+                android:key="name"/>
+        </intent>
+    </capability>
 </shortcuts>

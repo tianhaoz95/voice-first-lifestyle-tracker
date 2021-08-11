@@ -8,15 +8,14 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.tianhaoz95.lifestyletrackervoice_first.R
 import com.tianhaoz95.lifestyletrackervoice_first.databinding.FragmentReportResultBinding
+import com.tianhaoz95.lifestyletrackervoice_first.services.UserDataService
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ReportResultFragment : Fragment() {
-
+    @Inject lateinit var userDataService: UserDataService
     private var _binding: FragmentReportResultBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -24,7 +23,8 @@ class ReportResultFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentReportResultBinding.inflate(inflater, container, false)
+        _binding = FragmentReportResultBinding.inflate(
+            inflater, container, false)
         return binding.root
 
     }
@@ -33,8 +33,14 @@ class ReportResultFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+            findNavController().navigate(
+                R.id.action_ReportResult_to_ReportProgress)
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        binding.textviewSecond.text = userDataService.records.toString()
     }
 
     override fun onDestroyView() {

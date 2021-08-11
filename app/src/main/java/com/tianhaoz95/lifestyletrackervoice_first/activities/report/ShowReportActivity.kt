@@ -8,32 +8,25 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.tianhaoz95.lifestyletrackervoice_first.R
 import com.tianhaoz95.lifestyletrackervoice_first.databinding.ActivityShowReportBinding
+import com.tianhaoz95.lifestyletrackervoice_first.services.UserDataService
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ShowReportActivity : AppCompatActivity() {
-
-    private lateinit var appBarConfiguration: AppBarConfiguration
+    @Inject lateinit var userDataService: UserDataService
     private lateinit var binding: ActivityShowReportBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityShowReportBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        setSupportActionBar(binding.toolbar)
-
         val navController =
             findNavController(R.id.nav_host_fragment_content_show_report)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController =
-            findNavController(R.id.nav_host_fragment_content_show_report)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
+    override fun onStart() {
+        super.onStart()
+        userDataService.maybeNeedAuthentication(this)
     }
 }

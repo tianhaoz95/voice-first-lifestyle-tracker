@@ -58,7 +58,7 @@ class AddProgressFragment : Fragment() {
             }
             delay(3000)
             findNavController().navigate(
-                R.id.action_FirstFragment_to_SecondFragment
+                R.id.action_ReportProgress_to_ReportResult
             )
         }
     }

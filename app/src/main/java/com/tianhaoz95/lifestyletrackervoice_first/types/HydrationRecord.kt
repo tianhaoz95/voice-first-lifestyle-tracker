@@ -6,10 +6,10 @@ import android.util.NoSuchPropertyException
 import com.tianhaoz95.lifestyletrackervoice_first.R
 
 class HydrationRecord constructor(
-    private val type: IntakeItemCategory,
-    private val quantity: Int,
-    private val unit: IntakeItemUnit,
-    private val timestamp: Long
+    val type: IntakeItemCategory,
+    val quantity: Int,
+    val unit: IntakeItemUnit,
+    val timestamp: Long
 ) {
     companion object Factory {
         fun fromExtras(bundle: Bundle?): HydrationRecord {

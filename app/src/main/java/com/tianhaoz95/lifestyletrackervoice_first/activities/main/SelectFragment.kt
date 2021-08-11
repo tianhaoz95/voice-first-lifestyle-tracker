@@ -26,6 +26,7 @@ class SelectFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.buttonConfirmAdd.setOnClickListener {
             val intent = Intent(context, AddActivity::class.java)
+            intent.putExtra("name", "coffee")
             context?.startActivity(intent)
         }
     }

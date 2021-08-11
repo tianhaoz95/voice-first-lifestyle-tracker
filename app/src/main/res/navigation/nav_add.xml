@@ -8,21 +8,25 @@
     <fragment
         android:id="@+id/AddProgressFragment"
         android:name="com.tianhaoz95.lifestyletrackervoice_first.activities.record.AddProgressFragment"
-        android:label="@string/add_item_category_placeholder"
+        android:label="@string/add_progress_fragment_label"
         tools:layout="@layout/fragment_add_progress">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            android:id="@+id/action_AddProgressFragment_to_AddResultFragment"
             app:destination="@id/AddResultFragment" />
     </fragment>
     <fragment
         android:id="@+id/AddResultFragment"
         android:name="com.tianhaoz95.lifestyletrackervoice_first.activities.record.AddResultFragment"
-        android:label="@string/second_fragment_label"
+        android:label="@string/add_result_fragment_label"
         tools:layout="@layout/fragment_add_result">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/AddProgressFragment" />
+            android:id="@+id/action_AddResultFragment_to_AddProgressFragment"
+            app:destination="@id/AddProgressFragment">
+            <argument
+                android:name="status"
+                app:argType="boolean" />
+        </action>
     </fragment>
 </navigation>

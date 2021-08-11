@@ -27,7 +27,8 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(
+            inflater, container, false)
         return binding.root
     }
 
@@ -44,11 +45,13 @@ class HomeFragment : Fragment() {
         }
 
         binding.buttonSettings.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_settingsFragment)
+            findNavController().navigate(
+                R.id.action_HomeFragment_to_SettingsFragment)
         }
 
         binding.buttonAdd.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_selectFragment)
+            findNavController().navigate(
+                R.id.action_HomeFragment_to_SelectFragment)
         }
     }
 

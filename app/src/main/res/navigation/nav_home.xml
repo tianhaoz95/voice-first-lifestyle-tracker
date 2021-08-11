@@ -3,36 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_home"
-    app:startDestination="@id/Home">
+    app:startDestination="@id/HomeFragment">
 
     <fragment
-        android:id="@+id/Home"
+        android:id="@+id/HomeFragment"
         android:name="com.tianhaoz95.lifestyletrackervoice_first.activities.main.HomeFragment"
-        android:label="Home screen"
+        android:label="@string/home_fragment_label"
         tools:layout="@layout/fragment_home">
-
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/AddProgressFragment" />
+            android:id="@+id/action_HomeFragment_to_SettingsFragment"
+            app:destination="@id/SettingsFragment" />
         <action
-            android:id="@+id/action_SecondFragment_to_settingsFragment"
-            app:destination="@id/Settings" />
-        <action
-            android:id="@+id/action_SecondFragment_to_selectFragment"
-            app:destination="@id/Select" />
+            android:id="@+id/action_HomeFragment_to_SelectFragment"
+            app:destination="@id/SelectFragment" />
     </fragment>
     <fragment
-        android:id="@+id/Settings"
+        android:id="@+id/SettingsFragment"
         android:name="com.tianhaoz95.lifestyletrackervoice_first.activities.main.SettingsFragment"
-        android:label="SettingsFragment"
+        android:label="@string/settings_fragment_label"
         tools:layout="@layout/fragment_settings">
         <action
-            android:id="@+id/action_settingsFragment_to_SecondFragment"
-            app:destination="@id/AddResultFragment" />
+            android:id="@+id/action_SettingsFragment_to_HomeFragment"
+            app:destination="@id/HomeFragment" />
     </fragment>
     <fragment
-        android:id="@+id/Select"
+        android:id="@+id/SelectFragment"
         android:name="com.tianhaoz95.lifestyletrackervoice_first.activities.main.SelectFragment"
-        android:label="SelectFragment"
+        android:label="@string/select_fragment_label"
         tools:layout="@layout/fragment_select"/>
 </navigation>
