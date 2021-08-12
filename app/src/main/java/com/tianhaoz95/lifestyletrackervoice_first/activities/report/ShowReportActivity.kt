@@ -21,8 +21,10 @@ class ShowReportActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityShowReportBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val navController =
-            findNavController(R.id.nav_host_fragment_content_show_report)
+    }
+
+    override fun onBackPressed() {
+        finish()
     }
 
     override fun onStart() {

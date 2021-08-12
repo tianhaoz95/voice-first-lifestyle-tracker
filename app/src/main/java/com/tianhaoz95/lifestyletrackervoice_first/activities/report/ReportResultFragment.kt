@@ -22,25 +22,21 @@ class ReportResultFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentReportResultBinding.inflate(
             inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_ReportResult_to_ReportProgress)
+            activity?.finish()
         }
     }
 
     override fun onStart() {
         super.onStart()
-        binding.textviewSecond.text = userDataService.records.toString()
+        binding.textviewSecond.text = userDataService.recordCount.toString()
     }
 
     override fun onDestroyView() {

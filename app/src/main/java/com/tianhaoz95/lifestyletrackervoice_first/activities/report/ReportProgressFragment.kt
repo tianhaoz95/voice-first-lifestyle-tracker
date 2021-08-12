@@ -39,7 +39,6 @@ class ReportProgressFragment : Fragment() {
                 R.id.action_ReportProgress_to_ReportResult
             )
         }
-
         viewLifecycleOwner.lifecycleScope.launch {
             context?.let {
                 userDataService.getCurrentDayHydration(it,
@@ -47,10 +46,10 @@ class ReportProgressFragment : Fragment() {
                         binding.fetchReportStatus.text = msg
                     },
                     onSuccess = {
-                        binding.fetchReportStatus.text = userDataService.records.toString()
-//                        findNavController().navigate(
-//                            R.id.action_ReportProgress_to_ReportResult
-//                        )
+                        binding.fetchReportStatus.text = userDataService.recordCount.toString()
+                        findNavController().navigate(
+                            R.id.action_ReportProgress_to_ReportResult
+                        )
                     })
             }
         }

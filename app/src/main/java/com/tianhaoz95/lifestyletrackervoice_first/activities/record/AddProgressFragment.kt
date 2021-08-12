@@ -23,11 +23,11 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddProgressFragment : Fragment() {
-    private var _binding: FragmentAddProgressBinding? = null
     @Inject
-    lateinit var userDataService: UserDataService;
+    lateinit var userDataService: UserDataService
     private val db: FirebaseFirestore = Firebase.firestore
     private val user: FirebaseUser? = Firebase.auth.currentUser
+    private var _binding: FragmentAddProgressBinding? = null
 
     private val binding get() = _binding!!
 

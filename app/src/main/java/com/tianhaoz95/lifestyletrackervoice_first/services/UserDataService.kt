@@ -12,21 +12,22 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.tianhaoz95.lifestyletrackervoice_first.activities.authentication.AuthenticationActivity
 import com.tianhaoz95.lifestyletrackervoice_first.types.HydrationRecord
+import com.tianhaoz95.lifestyletrackervoice_first.types.HydrationReport
 import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemCategory
 import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemUnit
-import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import com.tianhaoz95.lifestyletrackervoice_first.types.report.CurrentDaySummary
 import java.util.*
 import javax.inject.Inject
+import javax.inject.Singleton
 
-@Module
-@InstallIn(SingletonComponent::class)
+@Singleton
 class UserDataService @Inject constructor() {
     private var db: FirebaseFirestore = Firebase.firestore
     private var user: FirebaseUser? = Firebase.auth.currentUser
     var records: MutableList<HydrationRecord> = mutableListOf()
+
     val recordCount get() = records.size
+    val currentDaySummary get() = HydrationReport(records).toCurrentDaySummary()
 
     fun maybeNeedAuthentication(context: Context): Unit {
         user = Firebase.auth.currentUser
