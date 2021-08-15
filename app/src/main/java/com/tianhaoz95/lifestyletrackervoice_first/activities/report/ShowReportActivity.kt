@@ -12,34 +12,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
+import com.tianhaoz95.lifestyletrackervoice_first.composables.report.ShowReportScreen
+import com.tianhaoz95.lifestyletrackervoice_first.composables.report.ShowReportViewModel
 import com.tianhaoz95.lifestyletrackervoice_first.services.UserDataService
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
-class ShowReportViewModel : ViewModel() {
-    private val _status = MutableLiveData<String>("")
-    val status: LiveData<String> = _status
-
-    private val _details = MutableLiveData<String>("")
-    val details: LiveData<String> = _details
-
-    fun setNewStatus(newStatus: String, newDetails: String) {
-        _status.value = newStatus
-        _details.value = newDetails
-    }
-}
-
-@Composable
-fun ShowReportScreen(viewModel: ShowReportViewModel) {
-    val status: String by viewModel.status.observeAsState("")
-    val details: String by viewModel.details.observeAsState("")
-
-    Column() {
-        Text(text = status)
-        Text(text = details)
-    }
-}
 
 @AndroidEntryPoint
 class ShowReportActivity : AppCompatActivity() {

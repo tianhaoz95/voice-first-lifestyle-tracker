@@ -12,36 +12,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
+import com.tianhaoz95.lifestyletrackervoice_first.composables.record.AddRecordScreen
+import com.tianhaoz95.lifestyletrackervoice_first.composables.record.AddRecordViewModel
 import com.tianhaoz95.lifestyletrackervoice_first.services.UserDataService
 import com.tianhaoz95.lifestyletrackervoice_first.types.HydrationRecord
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
-class AddRecordViewModel : ViewModel() {
-    private val _status = MutableLiveData<String>("")
-    val status: LiveData<String> = _status
-
-    private val _details = MutableLiveData<String>("")
-    val details: LiveData<String> = _details
-
-    fun setNewStatus(newStatus: String, newDetails: String) {
-        _status.value = newStatus
-        _details.value = newDetails
-    }
-}
-
-@Composable
-fun AddRecordScreen(viewModel: AddRecordViewModel) {
-    val status: String by viewModel.status.observeAsState("")
-    val details: String by viewModel.details.observeAsState("")
-    
-    Column() {
-        Text(text = status)
-        Text(text = details)
-    }
-}
 
 @AndroidEntryPoint
 class AddActivity : AppCompatActivity() {

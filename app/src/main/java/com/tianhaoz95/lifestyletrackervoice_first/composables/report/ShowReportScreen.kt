@@ -1,4 +1,4 @@
-package com.tianhaoz95.lifestyletrackervoice_first.composables.record
+package com.tianhaoz95.lifestyletrackervoice_first.composables.report
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Text
@@ -9,7 +9,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class AddRecordViewModel : ViewModel() {
+class ShowReportViewModel : ViewModel() {
     private val _status = MutableLiveData<String>("")
     val status: LiveData<String> = _status
 
@@ -23,7 +23,7 @@ class AddRecordViewModel : ViewModel() {
 }
 
 @Composable
-fun AddRecordScreen(viewModel: AddRecordViewModel) {
+fun ShowReportScreen(viewModel: ShowReportViewModel) {
     val status: String by viewModel.status.observeAsState("")
     val details: String by viewModel.details.observeAsState("")
 

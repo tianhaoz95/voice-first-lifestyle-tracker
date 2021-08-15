@@ -1,15 +1,23 @@
 package com.tianhaoz95.lifestyletrackervoice_first.activities.settings
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.compose.setContent
-import androidx.compose.material.Text
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.tianhaoz95.lifestyletrackervoice_first.composables.settings.SettingsScreen
+import com.tianhaoz95.lifestyletrackervoice_first.composables.settings.SettingsViewModel
 
 class SettingsActivity : AppCompatActivity() {
+    private val viewModel: SettingsViewModel = SettingsViewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Text(text = "Settings")
+            SettingsScreen(
+                viewModel = viewModel,
+                onShouldReportCrashChange = {
+                    viewModel.updateShouldReportCrash(it)
+                })
         }
     }
 }
