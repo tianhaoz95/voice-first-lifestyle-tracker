@@ -1,15 +1,20 @@
 package com.tianhaoz95.lifestyletrackervoice_first.composables.settings
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Switch
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.tianhaoz95.lifestyletrackervoice_first.composables.theme.AppTheme
 
 class SettingsViewModel : ViewModel() {
     private val _shouldReportCrash = MutableLiveData<Boolean>(false)
@@ -21,26 +26,50 @@ class SettingsViewModel : ViewModel() {
 }
 
 @Composable
+fun ReportCrashSetting(
+    viewModel: SettingsViewModel,
+    onShouldReportCrashChange: (updatedValue: Boolean) -> Unit
+) {
+    val shouldReportCrash: Boolean by viewModel
+        .shouldReportCrash.observeAsState(false)
+    Card(
+        modifier = Modifier.padding(Dp(4.0F)),
+        elevation = Dp(2.0F)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            SettingsTitle()
+            Switch(
+                checked = shouldReportCrash,
+                onCheckedChange = { onShouldReportCrashChange(it) },
+                modifier = Modifier.padding(Dp(4.0F))
+            )
+        }
+    }
+}
+
+@Composable
 fun SettingsScreen(
     viewModel: SettingsViewModel,
     onShouldReportCrashChange: (updatedValue: Boolean) -> Unit
 ) {
-    val shouldReportCrash: Boolean by viewModel.shouldReportCrash.observeAsState(
-        false
-    )
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(text = "Report crash")
-            Switch(
-                checked = shouldReportCrash,
-                onCheckedChange = { onShouldReportCrashChange(it) })
+    AppTheme(
+        content = {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Settings",
+                    style = MaterialTheme.typography.h6,
+                    modifier = Modifier.padding(Dp(4.0F))
+                )
+                ReportCrashSetting(viewModel, onShouldReportCrashChange)
+            }
         }
-    }
+    )
 }
