@@ -1,14 +1,16 @@
 package com.tianhaoz95.lifestyletrackervoice_first.activities.main
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import com.tianhaoz95.lifestyletrackervoice_first.R
-import com.tianhaoz95.lifestyletrackervoice_first.databinding.ActivityMainBinding
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material.Button
+import androidx.compose.material.Text
+import com.tianhaoz95.lifestyletrackervoice_first.activities.menu.MenuActivity
+import com.tianhaoz95.lifestyletrackervoice_first.activities.report.ShowReportActivity
+import com.tianhaoz95.lifestyletrackervoice_first.activities.settings.SettingsActivity
+import com.tianhaoz95.lifestyletrackervoice_first.composables.main.MainScreen
 import com.tianhaoz95.lifestyletrackervoice_first.services.UserDataService
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -16,28 +18,33 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     @Inject lateinit var userDataService: UserDataService
-    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-    }
-
-    override fun onStart() {
-        super.onStart()
         userDataService.maybeNeedAuthentication(this)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
+        setContent {
+            MainScreen(
+                addRecordHandler = { addRecordHandler() },
+                reportsHandler = { reportsHandler() },
+                settingsHandler = { settingsHandler() },
+                signOutHandler = { signOutHandler() },
+            )
         }
+    }
+
+    private fun addRecordHandler() {
+        startActivity(Intent(this, MenuActivity::class.java))
+    }
+
+    private fun reportsHandler() {
+        startActivity(Intent(this, ShowReportActivity::class.java))
+    }
+
+    private fun settingsHandler() {
+        startActivity(Intent(this, SettingsActivity::class.java))
+    }
+
+    private fun signOutHandler() {
+        userDataService.signOut(this)
     }
 }

@@ -11,6 +11,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LifestyleTrackerVoicefirst">
         <activity
+            android:name=".activities.menu.MenuActivity"
+            android:exported="true"
+            android:theme="@style/Theme.LifestyleTrackerVoicefirst.NoActionBar"/>
+        <activity
+            android:name=".activities.settings.SettingsActivity"
+            android:exported="true"
+            android:theme="@style/Theme.LifestyleTrackerVoicefirst.NoActionBar"/>
+        <activity
             android:name=".activities.report.ShowReportActivity"
             android:exported="true"
             android:label="@string/title_activity_show_report"
@@ -18,7 +26,7 @@
         <activity
             android:name=".activities.authentication.AuthenticationActivity"
             android:exported="true"
-            android:theme="@style/Theme.LifestyleTrackerVoicefirst.NoActionBar"/>
+            android:theme="@style/Theme.LifestyleTrackerVoicefirst.NoActionBar" />
         <activity
             android:name=".activities.record.AddActivity"
             android:exported="true"
@@ -26,8 +34,8 @@
             android:theme="@style/Theme.LifestyleTrackerVoicefirst.NoActionBar" />
         <activity
             android:name=".activities.main.MainActivity"
-            android:label="@string/app_name"
             android:exported="true"
+            android:label="@string/app_name"
             android:theme="@style/Theme.LifestyleTrackerVoicefirst.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
