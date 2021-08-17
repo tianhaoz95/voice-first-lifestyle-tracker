@@ -33,6 +33,33 @@
             <parameter
                 android:name="foodObservation.aboutFood.name"
                 android:key="name" />
+            <extra
+                android:key="requiredForegroundActivity"
+                android:value="com.tianhaoz95.lifestyletrackervoice_first/com.tianhaoz95.lifestyletrackervoice_first.main.MainActivity" />
+        </intent>
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.tianhaoz95.lifestyletrackervoice_first.activities.record.AddActivity"
+            android:targetPackage="com.tianhaoz95.lifestyletrackervoice_first">
+            <parameter
+                android:name="foodObservation.aboutFood.name"
+                android:key="name" />
+        </intent>
+    </capability>
+    <!-- For queries like "Add a cup of water" -->
+    <capability android:name="actions.intent.UPDATE_ITEM_LIST">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.tianhaoz95.lifestyletrackervoice_first"
+            android:targetClass="com.tianhaoz95.lifestyletrackervoice_first.activities.record.AddActivity">
+            <!-- Eg. itemListName = "Grocery List" -->
+            <parameter
+                android:name="itemList.name"
+                android:key="itemListName"/>
+            <!-- Eg. itemListElementName = "Milk" -->
+            <parameter
+                android:name="itemList.itemListElement.name"
+                android:key="itemListElementName"/>
         </intent>
     </capability>
     <!--
@@ -52,4 +79,45 @@
                 android:key="name"/>
         </intent>
     </capability>
+    <!-- For opening settings -->
+    <capability android:name="actions.intent.OPEN_APP_FEATURE">
+        <intent
+            android:targetPackage="com.tianhaoz95.lifestyletrackervoice_first"
+            android:targetClass="com.tianhaoz95.lifestyletrackervoice_first.activities.main.MainActivity">
+            <parameter
+                android:name="feature"
+                android:key="featureParam"/>
+            <extra
+                android:key="requiredForegroundActivity"
+                android:value="com.tianhaoz95.lifestyletrackervoice_first/com.tianhaoz95.lifestyletrackervoice_first.activities.main.MainActivity" />
+        </intent>
+        <intent
+            android:targetPackage="com.tianhaoz95.lifestyletrackervoice_first"
+            android:targetClass="com.tianhaoz95.lifestyletrackervoice_first.activities.main.MainActivity">
+            <parameter
+                android:name="feature"
+                android:key="featureParam"/>
+        </intent>
+    </capability>
+    <!-- Inline inventory for OPEN_APP_FEATURE -->
+    <shortcut
+        android:shortcutId="SETTINGS"
+        android:shortcutShortLabel="@string/settings_shortcut_short_label"
+        android:shortcutLongLabel="@string/settings_shortcut_long_label">
+        <capability-binding android:key="actions.intent.OPEN_APP_FEATURE">
+            <parameter-binding
+                android:key="feature"
+                android:value="@array/settings_feature_names" />
+        </capability-binding>
+    </shortcut>
+    <shortcut
+        android:shortcutId="RECORD"
+        android:shortcutShortLabel="@string/record_shortcut_short_label"
+        android:shortcutLongLabel="@string/record_shortcut_long_label">
+        <capability-binding android:key="actions.intent.OPEN_APP_FEATURE">
+            <parameter-binding
+                android:key="feature"
+                android:value="@array/record_feature_names" />
+        </capability-binding>
+    </shortcut>
 </shortcuts>

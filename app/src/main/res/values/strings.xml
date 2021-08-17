@@ -55,11 +55,17 @@
     <string name="previous">Previous</string>
 
     <!-- For in-app feature invocation -->
-    <string name="developer_settings_shortcut_short_label">
-        developer
+    <string name="settings_shortcut_short_label">
+        Settings
     </string>
-    <string name="developer_settings_shortcut_long_label">
-        developer settings
+    <string name="settings_shortcut_long_label">
+        Open settings
+    </string>
+    <string name="record_shortcut_short_label">
+        Record
+    </string>
+    <string name="record_shortcut_long_label">
+        Record nutrition intake
     </string>
 
     <string name="hello_first_fragment">Hello first fragment</string>

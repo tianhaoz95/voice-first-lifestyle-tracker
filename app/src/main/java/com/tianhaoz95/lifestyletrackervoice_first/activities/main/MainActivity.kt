@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         userDataService.maybeNeedAuthentication(this)
+        println("tianhaoz_debug: extras is ${intent.extras?.get("featureParam")}")
         setContent {
             MainScreen(
                 addRecordHandler = { addRecordHandler() },
@@ -30,6 +31,11 @@ class MainActivity : AppCompatActivity() {
                 signOutHandler = { signOutHandler() },
             )
         }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        println("tianhaoz_debug: new intent extras is ${intent?.extras?.get("featureParam")}")
     }
 
     private fun addRecordHandler() {

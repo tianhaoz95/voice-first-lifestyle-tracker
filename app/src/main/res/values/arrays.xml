@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="settings_feature_names">
+        <item>Developer Settings</item>
+        <item>Settings</item>
+    </string-array>
+    <string-array name="record_feature_names">
+        <item>Record</item>
+        <item>Track</item>
+    </string-array>
+</resources>

@@ -25,31 +25,7 @@ class SettingsViewModel : ViewModel() {
     }
 }
 
-@Composable
-fun ReportCrashSetting(
-    viewModel: SettingsViewModel,
-    onShouldReportCrashChange: (updatedValue: Boolean) -> Unit
-) {
-    val shouldReportCrash: Boolean by viewModel
-        .shouldReportCrash.observeAsState(false)
-    Card(
-        modifier = Modifier.padding(Dp(4.0F)),
-        elevation = Dp(2.0F)
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            SettingsTitle()
-            Switch(
-                checked = shouldReportCrash,
-                onCheckedChange = { onShouldReportCrashChange(it) },
-                modifier = Modifier.padding(Dp(4.0F))
-            )
-        }
-    }
-}
+
 
 @Composable
 fun SettingsScreen(
@@ -68,7 +44,7 @@ fun SettingsScreen(
                     style = MaterialTheme.typography.h6,
                     modifier = Modifier.padding(Dp(4.0F))
                 )
-                ReportCrashSetting(viewModel, onShouldReportCrashChange)
+                DeveloperSettings(viewModel, onShouldReportCrashChange)
             }
         }
     )
