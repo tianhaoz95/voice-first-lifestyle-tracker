@@ -120,4 +120,14 @@
                 android:value="@array/record_feature_names" />
         </capability-binding>
     </shortcut>
+    <shortcut
+        android:shortcutId="REPORT"
+        android:shortcutShortLabel="@string/report_shortcut_short_label"
+        android:shortcutLongLabel="@string/report_shortcut_long_label">
+        <capability-binding android:key="actions.intent.OPEN_APP_FEATURE">
+            <parameter-binding
+                android:key="feature"
+                android:value="@array/report_feature_names" />
+        </capability-binding>
+    </shortcut>
 </shortcuts>
