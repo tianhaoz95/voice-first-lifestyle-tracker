@@ -4,6 +4,8 @@ import android.app.Activity.RESULT_CANCELED
 import android.content.Context
 import android.content.Intent
 import com.firebase.ui.auth.AuthUI
+import com.google.android.gms.fitness.FitnessOptions
+import com.google.android.gms.fitness.data.DataType
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.CollectionReference
@@ -38,7 +40,10 @@ class UserDataService @Inject constructor() {
     }
 
     fun getSignInIntent(): Intent {
-        val providers = arrayListOf(AuthUI.IdpConfig.GoogleBuilder().build())
+        val providers = arrayListOf(
+            AuthUI.IdpConfig.EmailBuilder().build(),
+            AuthUI.IdpConfig.GoogleBuilder().build(),
+        )
         return AuthUI
             .getInstance()
             .createSignInIntentBuilder()
@@ -46,10 +51,15 @@ class UserDataService @Inject constructor() {
             .build()
     }
 
-    fun signOut(context: Context): Unit {
-        Firebase.auth.signOut()
-        val intent = Intent(context, AuthenticationActivity::class.java)
-        context.startActivity(intent)
+    fun signOut(context: Context) {
+        AuthUI
+            .getInstance()
+            .signOut(context)
+            .addOnCompleteListener {
+                val intent = Intent(
+                    context, AuthenticationActivity::class.java)
+                context.startActivity(intent)
+            }
     }
 
     fun addHydrationRecord(
@@ -57,7 +67,7 @@ class UserDataService @Inject constructor() {
         record: HydrationRecord,
         onError: (code: Int, msg: String) -> Unit,
         onSuccess: () -> Unit
-    ): Unit {
+    ) {
         maybeNeedAuthentication(context)
         val dataRef: CollectionReference = getUserTrackingDataRef(user?.uid!!)
         dataRef.add(record.toDatabaseEntry())
@@ -73,7 +83,7 @@ class UserDataService @Inject constructor() {
         context: Context,
         onError: (code: Int, msg: String) -> Unit,
         onSuccess: () -> Unit,
-    ): Unit {
+    ) {
         maybeNeedAuthentication(context)
         val dataRef: CollectionReference = getUserTrackingDataRef(user?.uid!!)
         val timeWindowDataRef = dataRef

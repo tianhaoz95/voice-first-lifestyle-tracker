@@ -3,6 +3,7 @@ package com.tianhaoz95.lifestyletrackervoice_first.composables.login
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,6 +30,26 @@ class LoginViewModel : ViewModel() {
 }
 
 @Composable
+fun LoginScreenTitle() {
+    Text(
+        text = "Nutrition Book",
+        style = MaterialTheme.typography.h1,
+        modifier = Modifier
+            .padding(horizontal = Dp(16.0F))
+    )
+}
+
+@Composable
+fun LoginScreenSubtitle() {
+    Text(
+        text = "Welcome :)",
+        style = MaterialTheme.typography.h2,
+        modifier = Modifier
+            .padding(horizontal = Dp(16.0F))
+    )
+}
+
+@Composable
 fun LoginScreen(viewModel: LoginViewModel, onSignIn: () -> Unit) {
     val status: String by viewModel.status.observeAsState("")
     val details: String by viewModel.details.observeAsState("")
@@ -37,18 +58,21 @@ fun LoginScreen(viewModel: LoginViewModel, onSignIn: () -> Unit) {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
+            horizontalAlignment = Alignment.Start,
         ) {
-            Text(
-                text = "Welcome",
-                style = MaterialTheme.typography.h4
-            )
+            LoginScreenTitle()
+            LoginScreenSubtitle()
             if (!status.isNullOrEmpty() && !details.isNullOrEmpty()) {
                 Text(text = status)
                 Text(text = details)
             }
-            Spacer(modifier = Modifier.height(Dp(value = 120.0F)))
-            Button(onClick = { onSignIn() }) {
+            Spacer(modifier = Modifier.height(Dp(value = 32.0F)))
+            OutlinedButton(
+                onClick = { onSignIn() },
+                modifier = Modifier
+                    .padding(horizontal = Dp(16.0F))
+                    .fillMaxWidth()
+            ) {
                 Text(text = "Sign in")
             }
         }

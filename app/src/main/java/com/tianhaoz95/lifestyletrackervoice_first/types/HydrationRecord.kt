@@ -4,6 +4,8 @@ import android.content.res.Resources
 import android.os.Bundle
 import android.util.NoSuchPropertyException
 import com.tianhaoz95.lifestyletrackervoice_first.R
+import java.util.*
+import kotlin.collections.HashMap
 
 class HydrationRecord constructor(
     val type: IntakeItemCategory,
@@ -11,6 +13,15 @@ class HydrationRecord constructor(
     val unit: IntakeItemUnit,
     val timestamp: Long
 ) {
+    private val _unitToLiterConversionDict: HashMap<IntakeItemUnit, Float> =
+        hashMapOf(
+            IntakeItemUnit.Cup to 0.2F,
+            IntakeItemUnit.Bottle to 0.5F,
+            IntakeItemUnit.Can to 0.3F,
+            IntakeItemUnit.Milliliter to 0.01F,
+            IntakeItemUnit.Liter to 1.0F,
+        )
+
     companion object Factory {
         fun fromExtras(bundle: Bundle?): HydrationRecord {
             if (bundle == null) {
@@ -42,6 +53,10 @@ class HydrationRecord constructor(
             }
             return IntakeItemCategory.Water
         }
+    }
+
+    fun toLiter(): Float {
+        return _unitToLiterConversionDict[unit]?.times(quantity) ?: 0.2F
     }
 
     fun toDatabaseEntry(): HashMap<String, Any> {

@@ -17,22 +17,12 @@ import androidx.lifecycle.ViewModel
 import com.tianhaoz95.lifestyletrackervoice_first.composables.settings.linking.AccountLinkingSettings
 import com.tianhaoz95.lifestyletrackervoice_first.composables.theme.AppTheme
 
-class SettingsViewModel : ViewModel() {
-    private val _shouldReportCrash = MutableLiveData<Boolean>(false)
-    val shouldReportCrash: LiveData<Boolean> = _shouldReportCrash
-
-    fun updateShouldReportCrash(newValue: Boolean) {
-        _shouldReportCrash.value = newValue
-    }
-}
-
-
-
 @Composable
 fun SettingsScreen(
     viewModel: SettingsViewModel,
     onShouldReportCrashChange: (updatedValue: Boolean) -> Unit,
-    linkGoogleFitHandler: () -> Unit
+    linkGoogleFitHandler: () -> Unit,
+    unlinkGoogleFitHandler: () -> Unit
 ) {
     AppTheme(
         content = {
@@ -46,7 +36,7 @@ fun SettingsScreen(
                     style = MaterialTheme.typography.h6,
                     modifier = Modifier.padding(Dp(4.0F))
                 )
-                AccountLinkingSettings(linkGoogleFitHandler)
+                AccountLinkingSettings(viewModel, linkGoogleFitHandler, unlinkGoogleFitHandler)
                 DeveloperSettings(viewModel, onShouldReportCrashChange)
             }
         }

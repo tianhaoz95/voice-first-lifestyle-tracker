@@ -1,19 +1,14 @@
 package com.tianhaoz95.lifestyletrackervoice_first.activities.record
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.fitness.Fitness
 import com.tianhaoz95.lifestyletrackervoice_first.composables.record.AddRecordScreen
 import com.tianhaoz95.lifestyletrackervoice_first.composables.record.AddRecordViewModel
+import com.tianhaoz95.lifestyletrackervoice_first.services.GoogleFitService
 import com.tianhaoz95.lifestyletrackervoice_first.services.UserDataService
 import com.tianhaoz95.lifestyletrackervoice_first.types.HydrationRecord
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,26 +20,36 @@ import javax.inject.Inject
 class AddActivity : AppCompatActivity() {
     @Inject
     lateinit var userDataService: UserDataService
+
+    @Inject
+    lateinit var googleFitService: GoogleFitService
+    private val tag: String = "AddActivity"
     private val viewModel: AddRecordViewModel = AddRecordViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContent { 
+        setContent {
             AddRecordScreen(viewModel)
         }
 
         lifecycleScope.launch {
-            addRecord()
+            val record: HydrationRecord = getRecord()
+            addRecord(record)
+            maybeAddRecordToGoogleFit(record)
             delay(3000L)
             finish()
         }
     }
 
-    private fun addRecord() {
+    private fun getRecord(): HydrationRecord {
+        return HydrationRecord.fromExtras(this.intent.extras)
+    }
+
+    private fun addRecord(record: HydrationRecord) {
         userDataService.addHydrationRecord(
             this,
-            HydrationRecord.fromExtras(this.intent.extras),
+            record,
             onError = { code, msg ->
                 viewModel.setNewStatus(
                     newStatus = code.toString(),
@@ -58,5 +63,28 @@ class AddActivity : AppCompatActivity() {
                 )
             }
         )
+    }
+
+    private fun maybeAddRecordToGoogleFit(record: HydrationRecord) {
+        if (googleFitService.isLinked(this)) {
+            Fitness.getHistoryClient(
+                this,
+                googleFitService.getAccount(this)
+            )
+                .insertData(
+                    googleFitService.getHydrationDataset(
+                        this, 0.5F
+                    )
+                )
+                .addOnSuccessListener { response ->
+                    Log.i(
+                        tag,
+                        "Add to Fit response: $response"
+                    )
+                }
+                .addOnFailureListener { e ->
+                    Log.e(tag, "Add to Fit error: ${e.message}")
+                }
+        }
     }
 }
