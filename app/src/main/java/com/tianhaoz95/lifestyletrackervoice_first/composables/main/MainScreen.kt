@@ -1,6 +1,7 @@
 package com.tianhaoz95.lifestyletrackervoice_first.composables.main
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
@@ -24,16 +25,29 @@ fun MainScreenTitle() {
 
 @Composable
 fun MainScreenMenuButton(label: String, handler: () -> Unit) {
-    OutlinedButton(
-        onClick = { handler() },
+    val leftCurveRadius: Float = 16.0F
+    Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(
-                horizontal = Dp(20.0F),
+                horizontal = Dp(0.0F),
                 vertical = Dp(8.0F)
             )
     ) {
-        Text(text = label)
+        Spacer(modifier = Modifier.width(Dp(36.0F)))
+        OutlinedButton(
+            onClick = { handler() },
+            modifier = Modifier
+                .fillMaxWidth(),
+            shape = RoundedCornerShape(
+                topStart = Dp(leftCurveRadius),
+                topEnd = Dp(0.0F),
+                bottomStart = Dp(leftCurveRadius),
+                bottomEnd = Dp(0.0F),
+            )
+        ) {
+            Text(text = label, style = MaterialTheme.typography.h6)
+        }
     }
 }
 

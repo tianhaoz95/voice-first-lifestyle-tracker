@@ -1,58 +1,74 @@
 package com.tianhaoz95.lifestyletrackervoice_first.composables.menu
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
 import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemCategory
-import com.tianhaoz95.lifestyletrackervoice_first.types.menu.MenuItem
+import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemUnit
 
 @Composable
-fun MenuItemCard(item: MenuItem, onItemClicked: (item: MenuItem) -> Unit) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(Dp(6.0F)),
-        elevation = Dp(2.0F),
-    ) {
-        Column() {
-            Text(text = item.getType.toString())
-            Button(
-                onClick = { onItemClicked(item) }, modifier = Modifier.padding(
-                    Dp(2.0F)
-                ).fillMaxWidth()
-            ) {
-                Text(text = "Add")
-            }
-        }
-    }
-}
+fun MenuScreen(
+    viewModel: MenuScreenViewModel,
+    typeList: List<IntakeItemCategory>,
+    unitList: List<IntakeItemUnit>,
+    onAddHandler: () -> Unit,
+) {
+    val quantity: Int by viewModel
+        .quantity.observeAsState(0)
 
-@Composable
-fun MenuScreen(items: List<MenuItem>, onItemClicked: (item: MenuItem) -> Unit) {
     Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
             .fillMaxSize()
     ) {
-        items.forEach {
-            MenuItemCard(it, onItemClicked)
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Text(text = "Record Intake", style = MaterialTheme.typography.h1)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(text = "Intake type:")
+                IntakeTypeMenu(viewModel, typeList)
+            }
+            Spacer(modifier = Modifier.height(Dp(16.0F)))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                TextField(
+                    value = quantity.toString(),
+                    onValueChange = { it ->
+                        viewModel.updateQuantity(it.toInt())
+                    },
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number
+                    )
+                )
+                IntakeUnitMenu(viewModel, unitList)
+            }
+            Spacer(modifier = Modifier.height(Dp(64.0F)))
+            OutlinedButton(
+                onClick = { onAddHandler() },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(text = "Add")
+            }
         }
     }
-}
-
-@Preview
-@Composable
-fun MenuScreenPreview() {
-    var itemList: MutableList<MenuItem> = mutableListOf()
-    for (i in 1..100) {
-        itemList.add(MenuItem(type = IntakeItemCategory.Soda))
-    }
-    MenuScreen(items = itemList.toList(), onItemClicked = {})
 }
