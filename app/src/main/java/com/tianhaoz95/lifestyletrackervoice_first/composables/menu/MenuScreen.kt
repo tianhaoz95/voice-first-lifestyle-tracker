@@ -17,15 +17,25 @@ import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemCategory
 import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemUnit
 
 @Composable
+fun MenuRow(content: @Composable () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.Start,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        content()
+    }
+    Spacer(modifier = Modifier.height(Dp(16.0F)))
+}
+
+@Composable
 fun MenuScreen(
     viewModel: MenuScreenViewModel,
     typeList: List<IntakeItemCategory>,
     unitList: List<IntakeItemUnit>,
     onAddHandler: () -> Unit,
 ) {
-    val quantity: Int by viewModel
-        .quantity.observeAsState(0)
-
     Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
@@ -34,41 +44,16 @@ fun MenuScreen(
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            Text(text = "Record Intake", style = MaterialTheme.typography.h1)
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.End,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+            MenuScreenTitle()
+            MenuRow {
                 Text(text = "Intake type:")
                 IntakeTypeMenu(viewModel, typeList)
             }
-            Spacer(modifier = Modifier.height(Dp(16.0F)))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.End,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                TextField(
-                    value = quantity.toString(),
-                    onValueChange = { it ->
-                        viewModel.updateQuantity(it.toInt())
-                    },
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Number
-                    )
-                )
+            MenuRow {
+                QuantityInput(viewModel)
                 IntakeUnitMenu(viewModel, unitList)
             }
-            Spacer(modifier = Modifier.height(Dp(64.0F)))
-            OutlinedButton(
-                onClick = { onAddHandler() },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(text = "Add")
-            }
+            MenuScreenSubmission(viewModel, onAddHandler)
         }
     }
 }

@@ -17,8 +17,14 @@ class MenuScreenViewModel : ViewModel() {
     private val _indexUnit = MutableLiveData(0)
     val indexUnit: LiveData<Int> = _indexUnit
 
-    private val _quantity = MutableLiveData(0)
-    val quantity: LiveData<Int> = _quantity
+    private val _quantity = MutableLiveData("1.0")
+    val quantity: LiveData<String> = _quantity
+
+    private val _quantityAtError = MutableLiveData(false)
+    val quantityAtError: LiveData<Boolean> = _quantityAtError
+
+    private val _canSubmit = MutableLiveData(true)
+    val canSubmit: LiveData<Boolean> = _canSubmit
 
     fun updateExpandType(newValue: Boolean) {
         _expandType.value = newValue
@@ -48,7 +54,20 @@ class MenuScreenViewModel : ViewModel() {
         return _indexType.value ?: 0
     }
 
-    fun updateQuantity(newQuantity: Int) {
+    fun updateQuantity(newQuantity: String) {
         _quantity.value = newQuantity
+    }
+
+    fun updateQuantityAtError(newValue: Boolean) {
+        _quantityAtError.value = newValue
+        updateCanSubmit()
+    }
+
+    fun updateCanSubmit() {
+        _canSubmit.value = !_quantityAtError.value!!
+    }
+
+    fun getQuantity(): Float {
+        return _quantity.value?.toFloatOrNull() ?: 0.0F
     }
 }
