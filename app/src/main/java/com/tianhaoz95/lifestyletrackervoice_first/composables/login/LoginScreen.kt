@@ -1,20 +1,18 @@
 package com.tianhaoz95.lifestyletrackervoice_first.composables.login
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.tianhaoz95.lifestyletrackervoice_first.composables.theme.AppTheme
 
 class LoginViewModel : ViewModel() {
     private val _status = MutableLiveData<String>("")
@@ -33,6 +31,7 @@ class LoginViewModel : ViewModel() {
 fun LoginScreenTitle() {
     Text(
         text = "Nutrition Book",
+        color = MaterialTheme.colors.primary,
         style = MaterialTheme.typography.h1,
         modifier = Modifier
             .padding(horizontal = Dp(16.0F))
@@ -42,45 +41,63 @@ fun LoginScreenTitle() {
 @Composable
 fun LoginScreenSubtitle() {
     Text(
-        text = "Welcome :)",
-        style = MaterialTheme.typography.h2,
+        text = "Stay on top of your nutrition intake",
+        style = MaterialTheme.typography.h6,
+        color = MaterialTheme.colors.primary,
         modifier = Modifier
             .padding(horizontal = Dp(16.0F))
     )
 }
 
 @Composable
-fun LoginScreen(viewModel: LoginViewModel, onSignIn: () -> Unit) {
+fun LoginScreen(
+    viewModel: LoginViewModel,
+    onSignIn: () -> Unit
+) {
     val status: String by viewModel.status.observeAsState("")
     val details: String by viewModel.details.observeAsState("")
 
-    MaterialTheme() {
+    AppTheme {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.Start,
         ) {
-            LoginScreenTitle()
-            LoginScreenSubtitle()
-            if (!status.isNullOrEmpty() && !details.isNullOrEmpty()) {
-                Text(text = status)
-                Text(text = details)
-            }
-            Spacer(modifier = Modifier.height(Dp(value = 32.0F)))
-            OutlinedButton(
-                onClick = { onSignIn() },
+            Row(
                 modifier = Modifier
-                    .padding(horizontal = Dp(16.0F))
                     .fillMaxWidth()
+                    .weight(2.0F),
+                verticalAlignment = Alignment.Bottom
             ) {
-                Text(text = "Sign in")
+                LoginScreenTitle()
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1.0F),
+                verticalAlignment = Alignment.Top
+            ) {
+                LoginScreenSubtitle()
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1.0F),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                LoginButton(onSignIn)
+            }
+            if (status.isNotEmpty() && details.isNotEmpty()) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1.0F),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(text = status)
+                    Text(text = details)
+                }
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun LoginScreenPreview() {
-    LoginScreen(viewModel = LoginViewModel(), onSignIn = {})
 }

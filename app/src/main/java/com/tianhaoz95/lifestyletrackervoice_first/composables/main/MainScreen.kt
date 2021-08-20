@@ -25,7 +25,7 @@ fun MainScreenTitle() {
 
 @Composable
 fun MainScreenMenuButton(label: String, handler: () -> Unit) {
-    val leftCurveRadius: Float = 16.0F
+    val topLeftCurveRadius: Float = 16.0F
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -40,9 +40,9 @@ fun MainScreenMenuButton(label: String, handler: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth(),
             shape = RoundedCornerShape(
-                topStart = Dp(leftCurveRadius),
+                topStart = Dp(topLeftCurveRadius),
                 topEnd = Dp(0.0F),
-                bottomStart = Dp(leftCurveRadius),
+                bottomStart = Dp(0.0F),
                 bottomEnd = Dp(0.0F),
             )
         ) {
