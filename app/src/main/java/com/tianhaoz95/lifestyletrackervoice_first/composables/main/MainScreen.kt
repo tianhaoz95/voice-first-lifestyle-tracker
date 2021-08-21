@@ -14,30 +14,41 @@ import androidx.compose.ui.unit.Dp
 import com.tianhaoz95.lifestyletrackervoice_first.composables.theme.AppTheme
 
 @Composable
+fun MainScreenContent(
+    addRecordHandler: () -> Unit,
+    reportsHandler: () -> Unit,
+    settingsHandler: () -> Unit,
+) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        MainScreenTitle()
+        Spacer(modifier = Modifier.height(Dp(16.0F)))
+        MainScreenMenuButton(
+            label = "Add",
+            handler = { addRecordHandler() })
+        MainScreenMenuButton(
+            label = "Reports",
+            handler = { reportsHandler() })
+        MainScreenMenuButton(
+            label = "Settings",
+            handler = { settingsHandler() })
+    }
+}
+
+@Composable
 fun MainScreen(
     addRecordHandler: () -> Unit,
     reportsHandler: () -> Unit,
     settingsHandler: () -> Unit,
 ) {
-    AppTheme(
-        content = {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                MainScreenTitle()
-                Spacer(modifier = Modifier.height(Dp(16.0F)))
-                MainScreenMenuButton(
-                    label = "Add",
-                    handler = { addRecordHandler() })
-                MainScreenMenuButton(
-                    label = "Reports",
-                    handler = { reportsHandler() })
-                MainScreenMenuButton(
-                    label = "Settings",
-                    handler = { settingsHandler() })
-            }
-        }
-    )
+    AppTheme {
+        MainScreenContent(
+            addRecordHandler,
+            reportsHandler,
+            settingsHandler
+        )
+    }
 }

@@ -33,7 +33,10 @@ fun AccountSettings(onSignOut: () -> Unit) {
        ) {
            AccountSettingsTitle()
            Divider()
-           TextButton(onClick = { onSignOut() }) {
+           TextButton(
+               onClick = { onSignOut() },
+               modifier = Modifier.fillMaxWidth()
+           ) {
                Text(text = "Sign out")
            }
        }

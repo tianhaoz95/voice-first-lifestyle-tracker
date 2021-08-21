@@ -8,6 +8,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.tianhaoz95.lifestyletrackervoice_first.composables.theme.AppTheme
 
 class AddRecordViewModel : ViewModel() {
     private val _status = MutableLiveData<String>("")
@@ -23,12 +24,19 @@ class AddRecordViewModel : ViewModel() {
 }
 
 @Composable
-fun AddRecordScreen(viewModel: AddRecordViewModel) {
+fun AddRecordScreenContent(viewModel: AddRecordViewModel) {
     val status: String by viewModel.status.observeAsState("")
     val details: String by viewModel.details.observeAsState("")
 
     Column() {
         Text(text = status)
         Text(text = details)
+    }
+}
+
+@Composable
+fun AddRecordScreen(viewModel: AddRecordViewModel) {
+    AppTheme {
+        AddRecordScreenContent(viewModel)
     }
 }

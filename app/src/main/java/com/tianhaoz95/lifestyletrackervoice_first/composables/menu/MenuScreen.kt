@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
+import com.tianhaoz95.lifestyletrackervoice_first.composables.theme.AppTheme
 import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemCategory
 import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemUnit
 
@@ -30,7 +31,7 @@ fun MenuRow(content: @Composable () -> Unit) {
 }
 
 @Composable
-fun MenuScreen(
+fun MenuScreenContent(
     viewModel: MenuScreenViewModel,
     typeList: List<IntakeItemCategory>,
     unitList: List<IntakeItemUnit>,
@@ -55,5 +56,22 @@ fun MenuScreen(
             }
             MenuScreenSubmission(viewModel, onAddHandler)
         }
+    }
+}
+
+@Composable
+fun MenuScreen(
+    viewModel: MenuScreenViewModel,
+    typeList: List<IntakeItemCategory>,
+    unitList: List<IntakeItemUnit>,
+    onAddHandler: () -> Unit,
+) {
+    AppTheme {
+        MenuScreenContent(
+            viewModel,
+            typeList,
+            unitList,
+            onAddHandler,
+        )
     }
 }
