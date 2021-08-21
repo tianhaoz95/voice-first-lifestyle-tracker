@@ -51,14 +51,16 @@ class UserDataService @Inject constructor() {
             .build()
     }
 
-    fun signOut(context: Context) {
+    fun signOut(context: Context, onComplete: () -> Unit) {
         AuthUI
             .getInstance()
             .signOut(context)
             .addOnCompleteListener {
                 val intent = Intent(
                     context, AuthenticationActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 context.startActivity(intent)
+                onComplete()
             }
     }
 

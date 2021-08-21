@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
                 addRecordHandler = { addRecordHandler() },
                 reportsHandler = { reportsHandler() },
                 settingsHandler = { settingsHandler() },
-                signOutHandler = { signOutHandler() },
             )
         }
     }
@@ -78,9 +77,5 @@ class MainActivity : AppCompatActivity() {
 
     private fun settingsHandler() {
         startActivity(Intent(this, SettingsActivity::class.java))
-    }
-
-    private fun signOutHandler() {
-        userDataService.signOut(this)
     }
 }

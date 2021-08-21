@@ -1,4 +1,4 @@
-package com.tianhaoz95.lifestyletrackervoice_first.composables.settings
+package com.tianhaoz95.lifestyletrackervoice_first.composables.settings.developer
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
-import com.tianhaoz95.lifestyletrackervoice_first.composables.settings.developer.ReportCrashSetting
+import com.tianhaoz95.lifestyletrackervoice_first.composables.settings.SettingsViewModel
 
 @Composable
 fun DeveloperSettingsTitle() {

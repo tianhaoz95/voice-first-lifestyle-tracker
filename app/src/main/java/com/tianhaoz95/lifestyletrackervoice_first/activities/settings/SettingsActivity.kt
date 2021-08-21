@@ -11,6 +11,7 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tianhaoz95.lifestyletrackervoice_first.composables.settings.SettingsScreen
 import com.tianhaoz95.lifestyletrackervoice_first.composables.settings.SettingsViewModel
 import com.tianhaoz95.lifestyletrackervoice_first.services.GoogleFitService
+import com.tianhaoz95.lifestyletrackervoice_first.services.UserDataService
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -18,6 +19,8 @@ import javax.inject.Inject
 class SettingsActivity : AppCompatActivity() {
     @Inject
     lateinit var googleFitService: GoogleFitService
+    @Inject
+    lateinit var userDataService: UserDataService
     private val viewModel: SettingsViewModel = SettingsViewModel()
     private val linkGoogleFitRequestCode: Int = 1
 
@@ -91,8 +94,15 @@ class SettingsActivity : AppCompatActivity() {
                     updateCrashReporting(it)
                 },
                 linkGoogleFitHandler = { linkFit() },
-                unlinkGoogleFitHandler = { unlinkFit() }
+                unlinkGoogleFitHandler = { unlinkFit() },
+                onSignOut = { onSignOut() }
             )
+        }
+    }
+
+    private fun onSignOut() {
+        userDataService.signOut(this) {
+            finish()
         }
     }
 

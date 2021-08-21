@@ -56,7 +56,6 @@ fun MainScreen(
     addRecordHandler: () -> Unit,
     reportsHandler: () -> Unit,
     settingsHandler: () -> Unit,
-    signOutHandler: () -> Unit,
 ) {
     AppTheme(
         content = {
@@ -76,21 +75,7 @@ fun MainScreen(
                 MainScreenMenuButton(
                     label = "Settings",
                     handler = { settingsHandler() })
-                MainScreenMenuButton(
-                    label = "Sign out",
-                    handler = { signOutHandler() })
             }
         }
-    )
-}
-
-@Preview
-@Composable
-fun MainScreenPreview() {
-    MainScreen(
-        addRecordHandler = {},
-        reportsHandler = {},
-        settingsHandler = {},
-        signOutHandler = {},
     )
 }

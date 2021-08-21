@@ -14,6 +14,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.tianhaoz95.lifestyletrackervoice_first.composables.settings.account.AccountSettings
+import com.tianhaoz95.lifestyletrackervoice_first.composables.settings.developer.DeveloperSettings
 import com.tianhaoz95.lifestyletrackervoice_first.composables.settings.linking.AccountLinkingSettings
 import com.tianhaoz95.lifestyletrackervoice_first.composables.theme.AppTheme
 
@@ -22,7 +24,8 @@ fun SettingsScreen(
     viewModel: SettingsViewModel,
     onShouldReportCrashChange: (updatedValue: Boolean) -> Unit,
     linkGoogleFitHandler: () -> Unit,
-    unlinkGoogleFitHandler: () -> Unit
+    unlinkGoogleFitHandler: () -> Unit,
+    onSignOut: () -> Unit,
 ) {
     AppTheme(
         content = {
@@ -33,11 +36,12 @@ fun SettingsScreen(
             ) {
                 Text(
                     text = "Settings",
-                    style = MaterialTheme.typography.h6,
+                    style = MaterialTheme.typography.h1,
                     modifier = Modifier.padding(Dp(4.0F))
                 )
                 AccountLinkingSettings(viewModel, linkGoogleFitHandler, unlinkGoogleFitHandler)
                 DeveloperSettings(viewModel, onShouldReportCrashChange)
+                AccountSettings(onSignOut)
             }
         }
     )
