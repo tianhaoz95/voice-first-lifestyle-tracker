@@ -18,7 +18,8 @@ fun MenuTypeCard(item: IntakeItemCategory) {
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            text = item.toString()
+            text = item.toString(),
+            color = MaterialTheme.colors.primary
         )
     }
 }

@@ -19,7 +19,8 @@ fun MenuUnitCard(item: IntakeItemUnit) {
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            text = item.toString()
+            text = item.toString(),
+            color = MaterialTheme.colors.primary
         )
     }
 }

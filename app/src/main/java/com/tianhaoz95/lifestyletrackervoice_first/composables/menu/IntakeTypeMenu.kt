@@ -2,6 +2,7 @@ package com.tianhaoz95.lifestyletrackervoice_first.composables.menu
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem

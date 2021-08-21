@@ -13,6 +13,7 @@ fun MainScreenTitle() {
         text = "Nutrition Book",
         style = MaterialTheme.typography.h1,
         modifier = Modifier
-            .padding(Dp(16.0F))
+            .padding(Dp(16.0F)),
+        color = MaterialTheme.colors.primary
     )
 }
