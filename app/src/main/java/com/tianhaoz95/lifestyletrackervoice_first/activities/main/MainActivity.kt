@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         userDataService.maybeNeedAuthentication(this)
         maybeLaunchFeature(intent)
+        userDataService.initializeRemoteConfig()
         viewModel.updateIsReady(true)
         setContent {
             MainScreen(

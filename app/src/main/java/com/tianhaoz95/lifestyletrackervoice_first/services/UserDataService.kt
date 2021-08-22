@@ -12,6 +12,8 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import com.tianhaoz95.lifestyletrackervoice_first.activities.authentication.AuthenticationActivity
 import com.tianhaoz95.lifestyletrackervoice_first.types.HydrationRecord
 import com.tianhaoz95.lifestyletrackervoice_first.types.HydrationReport
@@ -30,6 +32,16 @@ class UserDataService @Inject constructor() {
 
     val recordCount get() = records.size
     val currentDaySummary get() = HydrationReport(records).toCurrentDaySummary()
+
+    fun initializeRemoteConfig() {
+        val remoteConfig = Firebase.remoteConfig
+        val configSettings = remoteConfigSettings {
+            minimumFetchIntervalInSeconds = 3600
+        }
+        remoteConfig.setConfigSettingsAsync(configSettings)
+        remoteConfig.setDefaultsAsync(mapOf("show_report_in_menu" to false))
+        remoteConfig.fetchAndActivate()
+    }
 
     fun maybeNeedAuthentication(context: Context): Unit {
         user = Firebase.auth.currentUser
