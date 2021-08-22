@@ -17,8 +17,8 @@ android {
         applicationId "com.tianhaoz95.lifestyletrackervoice_first"
         minSdkVersion 25
         targetSdkVersion 31
-        versionCode 12
-        versionName "1.0.8"
+        versionCode 13
+        versionName "1.0.9"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
