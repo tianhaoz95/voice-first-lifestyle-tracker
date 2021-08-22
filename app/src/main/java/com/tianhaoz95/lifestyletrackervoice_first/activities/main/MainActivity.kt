@@ -1,5 +1,6 @@
 package com.tianhaoz95.lifestyletrackervoice_first.activities.main
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -24,9 +25,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        userDataService.maybeNeedAuthentication(this)
+        userDataService.initialize(
+            context = this,
+            getIsDeveloper = { getDeveloperIdentity() }
+        )
         maybeLaunchFeature(intent)
-        userDataService.initializeRemoteConfig()
         viewModel.updateIsReady(true)
         setContent {
             MainScreen(
@@ -35,6 +38,15 @@ class MainActivity : AppCompatActivity() {
                 reportsHandler = { reportsHandler() },
                 settingsHandler = { settingsHandler() },
             )
+        }
+    }
+
+    private fun getDeveloperIdentity(): Boolean? {
+        val sharedPref = getPreferences(Context.MODE_PRIVATE)
+        return if (sharedPref.contains("isDeveloper")) {
+            sharedPref.getBoolean("isDeveloper", true)
+        } else {
+            null
         }
     }
 
