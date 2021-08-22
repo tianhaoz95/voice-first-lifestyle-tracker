@@ -10,6 +10,7 @@ import com.tianhaoz95.lifestyletrackervoice_first.activities.menu.MenuActivity
 import com.tianhaoz95.lifestyletrackervoice_first.activities.report.ShowReportActivity
 import com.tianhaoz95.lifestyletrackervoice_first.activities.settings.SettingsActivity
 import com.tianhaoz95.lifestyletrackervoice_first.composables.main.MainScreen
+import com.tianhaoz95.lifestyletrackervoice_first.composables.main.MainScreenViewModel
 import com.tianhaoz95.lifestyletrackervoice_first.services.UserDataService
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -18,14 +19,17 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var userDataService: UserDataService
+    private val viewModel: MainScreenViewModel = MainScreenViewModel()
     private val tag: String = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         userDataService.maybeNeedAuthentication(this)
         maybeLaunchFeature(intent)
+        viewModel.updateIsReady(true)
         setContent {
             MainScreen(
+                viewModel = viewModel,
                 addRecordHandler = { addRecordHandler() },
                 reportsHandler = { reportsHandler() },
                 settingsHandler = { settingsHandler() },
