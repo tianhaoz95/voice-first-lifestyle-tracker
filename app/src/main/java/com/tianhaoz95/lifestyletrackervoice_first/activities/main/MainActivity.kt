@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         )
         maybeLaunchFeature(intent)
         viewModel.updateIsReady(true)
+        viewModel.updateShowReport(userDataService.isReportEnabled)
         setContent {
             MainScreen(
                 viewModel = viewModel,

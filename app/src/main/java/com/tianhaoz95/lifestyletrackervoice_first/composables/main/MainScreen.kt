@@ -24,6 +24,8 @@ fun MainScreenContent(
 ) {
     val isReady: Boolean by viewModel
         .isReady.observeAsState(false)
+    val showReport: Boolean by viewModel
+        .showReport.observeAsState(false)
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -36,9 +38,11 @@ fun MainScreenContent(
             MainScreenMenuButton(
                 label = "Add",
                 handler = { addRecordHandler() })
-            MainScreenMenuButton(
-                label = "Reports",
-                handler = { reportsHandler() })
+            if (showReport) {
+                MainScreenMenuButton(
+                    label = "Reports",
+                    handler = { reportsHandler() })
+            }
             MainScreenMenuButton(
                 label = "Settings",
                 handler = { settingsHandler() })

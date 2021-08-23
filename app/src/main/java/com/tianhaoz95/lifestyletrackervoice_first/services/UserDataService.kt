@@ -14,6 +14,7 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import com.tianhaoz95.lifestyletrackervoice_first.activities.authentication.AuthenticationActivity
@@ -30,6 +31,7 @@ import javax.inject.Singleton
 class UserDataService @Inject constructor() {
     private var db: FirebaseFirestore = Firebase.firestore
     private var user: FirebaseUser? = Firebase.auth.currentUser
+    private var remoteConfig: FirebaseRemoteConfig = Firebase.remoteConfig
     private var shouldReportCrash: Boolean = true
     private var isDeveloper: Boolean = false
     var records: MutableList<HydrationRecord> = mutableListOf()
@@ -55,8 +57,7 @@ class UserDataService @Inject constructor() {
         isDeveloper = newValue
     }
 
-    fun initializeRemoteConfig() {
-        val remoteConfig = Firebase.remoteConfig
+    private fun initializeRemoteConfig() {
         val configSettings = remoteConfigSettings {
             minimumFetchIntervalInSeconds = 3600
         }
@@ -64,6 +65,9 @@ class UserDataService @Inject constructor() {
         remoteConfig.setDefaultsAsync(mapOf("show_report_in_menu" to false))
         remoteConfig.fetchAndActivate()
     }
+
+    val isReportEnabled: Boolean get() = remoteConfig.getBoolean(
+        "show_report_in_menu")
 
     fun maybeNeedAuthentication(context: Context): Unit {
         user = Firebase.auth.currentUser

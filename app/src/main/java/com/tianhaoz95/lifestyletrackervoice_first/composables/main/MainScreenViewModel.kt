@@ -11,4 +11,11 @@ class MainScreenViewModel : ViewModel() {
     fun updateIsReady(newValue: Boolean) {
         _isReady.value = newValue
     }
+
+    private val _showReport = MutableLiveData(false)
+    val showReport: LiveData<Boolean> = _showReport
+
+    fun updateShowReport(newValue: Boolean) {
+        _showReport.value = newValue
+    }
 }
