@@ -28,7 +28,10 @@ fun IsDeveloper(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(text = "I am a developer")
+        Text(
+            text = "I am a developer",
+            modifier = Modifier.padding(Dp(4.0F)),
+        )
         Switch(
             checked = isDeveloper,
             onCheckedChange = { onIsDeveloperChange(it) },

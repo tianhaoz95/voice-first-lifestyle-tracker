@@ -8,6 +8,8 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.BuildConfig
 import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.gms.fitness.data.DataType
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.CollectionReference
@@ -31,6 +33,7 @@ import javax.inject.Singleton
 class UserDataService @Inject constructor() {
     private var db: FirebaseFirestore = Firebase.firestore
     private var user: FirebaseUser? = Firebase.auth.currentUser
+    private var firebaseAnalytics: FirebaseAnalytics = Firebase.analytics
     private var remoteConfig: FirebaseRemoteConfig = Firebase.remoteConfig
     private var shouldReportCrash: Boolean = true
     private var isDeveloper: Boolean = false
@@ -51,10 +54,18 @@ class UserDataService @Inject constructor() {
     private fun initializeDeveloperIdentifier(getIsDeveloper: () -> Boolean?) {
         val isDebugBuild: Boolean = BuildConfig.DEBUG
         isDeveloper = getIsDeveloper() ?: isDebugBuild
+        firebaseAnalytics.setUserProperty(
+            "Developer",
+            isDeveloper.toString()
+        )
     }
 
     fun updateIsDeveloper(newValue: Boolean) {
         isDeveloper = newValue
+        firebaseAnalytics.setUserProperty(
+            "Developer",
+            newValue.toString()
+        )
     }
 
     private fun initializeRemoteConfig() {

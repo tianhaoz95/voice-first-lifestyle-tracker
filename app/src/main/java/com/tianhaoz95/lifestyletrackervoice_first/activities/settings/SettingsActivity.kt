@@ -100,6 +100,10 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
+    private fun onIsDeveloperChange(newValue: Boolean) {
+        userDataService.updateIsDeveloper(newValue)
+    }
+
     private fun onSignOut() {
         userDataService.signOut(this) {
             finish()
