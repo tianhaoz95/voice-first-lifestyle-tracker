@@ -33,6 +33,7 @@ fun DeveloperSettings(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             DeveloperSettingsTitle()
+            IsDeveloper(viewModel, {})
             ReportCrashSetting(viewModel, onShouldReportCrashChange)
         }
     }
