@@ -18,4 +18,11 @@ class SettingsViewModel : ViewModel() {
     fun updateShouldReportCrash(newValue: Boolean) {
         _shouldReportCrash.value = newValue
     }
+
+    private val _isDeveloper = MutableLiveData(false)
+    val isDeveloper: LiveData<Boolean> = _isDeveloper
+
+    fun updateIsDeveloper(newValue: Boolean) {
+        _isDeveloper.value = newValue
+    }
 }
