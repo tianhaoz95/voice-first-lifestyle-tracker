@@ -93,6 +93,9 @@ class SettingsActivity : AppCompatActivity() {
                 onShouldReportCrashChange = {
                     updateCrashReporting(it)
                 },
+                onIsDeveloperChange = {
+                    onIsDeveloperChange(it)
+                },
                 linkGoogleFitHandler = { linkFit() },
                 unlinkGoogleFitHandler = { unlinkFit() },
                 onSignOut = { onSignOut() }
@@ -102,6 +105,7 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun onIsDeveloperChange(newValue: Boolean) {
         userDataService.updateIsDeveloper(newValue)
+        viewModel.updateIsDeveloper(newValue)
     }
 
     private fun onSignOut() {

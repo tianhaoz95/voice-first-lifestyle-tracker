@@ -16,6 +16,7 @@ import com.tianhaoz95.lifestyletrackervoice_first.composables.theme.AppTheme
 fun SettingsScreenContent(
     viewModel: SettingsViewModel,
     onShouldReportCrashChange: (updatedValue: Boolean) -> Unit,
+    onIsDeveloperChange: (newValue: Boolean) -> Unit,
     linkGoogleFitHandler: () -> Unit,
     unlinkGoogleFitHandler: () -> Unit,
     onSignOut: () -> Unit,
@@ -40,7 +41,10 @@ fun SettingsScreenContent(
             linkGoogleFitHandler,
             unlinkGoogleFitHandler
         )
-        DeveloperSettings(viewModel, onShouldReportCrashChange)
+        DeveloperSettings(
+            viewModel,
+            onShouldReportCrashChange,
+            onIsDeveloperChange)
         AccountSettings(onSignOut)
     }
 }
@@ -49,6 +53,7 @@ fun SettingsScreenContent(
 fun SettingsScreen(
     viewModel: SettingsViewModel,
     onShouldReportCrashChange: (updatedValue: Boolean) -> Unit,
+    onIsDeveloperChange: (newValue: Boolean) -> Unit,
     linkGoogleFitHandler: () -> Unit,
     unlinkGoogleFitHandler: () -> Unit,
     onSignOut: () -> Unit,
@@ -57,6 +62,7 @@ fun SettingsScreen(
         SettingsScreenContent(
             viewModel,
             onShouldReportCrashChange,
+            onIsDeveloperChange,
             linkGoogleFitHandler,
             unlinkGoogleFitHandler,
             onSignOut

@@ -22,7 +22,8 @@ fun DeveloperSettingsTitle() {
 @Composable
 fun DeveloperSettings(
     viewModel: SettingsViewModel,
-    onShouldReportCrashChange: (updatedValue: Boolean) -> Unit
+    onShouldReportCrashChange: (updatedValue: Boolean) -> Unit,
+    onIsDeveloperChange: (newValue: Boolean) -> Unit,
 ) {
     Card(
         modifier = Modifier.padding(Dp(4.0F)),
@@ -33,7 +34,7 @@ fun DeveloperSettings(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             DeveloperSettingsTitle()
-            IsDeveloper(viewModel, {})
+            IsDeveloper(viewModel, onIsDeveloperChange)
             ReportCrashSetting(viewModel, onShouldReportCrashChange)
         }
     }
