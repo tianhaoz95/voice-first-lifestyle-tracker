@@ -52,6 +52,7 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fetchCrashReporting()
+        fetchIsDeveloper()
         viewModel.updateIsGoogleFitLinked(
             googleFitService.isLinked(this)
         )
@@ -125,6 +126,12 @@ class SettingsActivity : AppCompatActivity() {
         FirebaseCrashlytics
             .getInstance()
             .setCrashlyticsCollectionEnabled(update)
+    }
+
+    private fun fetchIsDeveloper() {
+        val sharedPref = getPreferences(Context.MODE_PRIVATE)
+        val shouldReportCrash = sharedPref.getBoolean("shouldReportCrash", true)
+        viewModel.updateShouldReportCrash(shouldReportCrash)
     }
 
     private fun updateIsDeveloper(update: Boolean) {
