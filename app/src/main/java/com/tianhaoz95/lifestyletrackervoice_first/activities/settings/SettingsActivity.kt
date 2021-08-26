@@ -49,6 +49,28 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        fetchCrashReporting()
+        viewModel.updateIsGoogleFitLinked(
+            googleFitService.isLinked(this)
+        )
+        setContent {
+            SettingsScreen(
+                viewModel = viewModel,
+                onShouldReportCrashChange = {
+                    updateCrashReporting(it)
+                },
+                onIsDeveloperChange = {
+                    updateIsDeveloper(it)
+                },
+                linkGoogleFitHandler = { linkFit() },
+                unlinkGoogleFitHandler = { unlinkFit() },
+                onSignOut = { onSignOut() }
+            )
+        }
+    }
+
     private fun unlinkFit() {
         Fitness.getConfigClient(
             this, googleFitService.getAccount(this)
@@ -81,33 +103,6 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        fetchCrashReporting()
-        viewModel.updateIsGoogleFitLinked(
-            googleFitService.isLinked(this)
-        )
-        setContent {
-            SettingsScreen(
-                viewModel = viewModel,
-                onShouldReportCrashChange = {
-                    updateCrashReporting(it)
-                },
-                onIsDeveloperChange = {
-                    onIsDeveloperChange(it)
-                },
-                linkGoogleFitHandler = { linkFit() },
-                unlinkGoogleFitHandler = { unlinkFit() },
-                onSignOut = { onSignOut() }
-            )
-        }
-    }
-
-    private fun onIsDeveloperChange(newValue: Boolean) {
-        userDataService.updateIsDeveloper(newValue)
-        viewModel.updateIsDeveloper(newValue)
-    }
-
     private fun onSignOut() {
         userDataService.signOut(this) {
             finish()
@@ -122,6 +117,19 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun updateCrashReporting(update: Boolean) {
         viewModel.updateShouldReportCrash(update)
+        val sharedPref = getPreferences(Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putBoolean("shouldReportCrash", update)
+            apply()
+        }
+        FirebaseCrashlytics
+            .getInstance()
+            .setCrashlyticsCollectionEnabled(update)
+    }
+
+    private fun updateIsDeveloper(update: Boolean) {
+        userDataService.updateIsDeveloper(update)
+        viewModel.updateIsDeveloper(update)
         val sharedPref = getPreferences(Context.MODE_PRIVATE)
         with(sharedPref.edit()) {
             putBoolean("shouldReportCrash", update)

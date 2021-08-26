@@ -29,7 +29,7 @@ fun IsDeveloper(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            text = "I am a developer",
+            text = "Developer",
             modifier = Modifier.padding(Dp(4.0F)),
         )
         Switch(
