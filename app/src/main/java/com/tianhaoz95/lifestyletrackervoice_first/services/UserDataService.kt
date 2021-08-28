@@ -1,13 +1,10 @@
 package com.tianhaoz95.lifestyletrackervoice_first.services
 
-import android.app.Activity
 import android.app.Activity.RESULT_CANCELED
 import android.content.Context
 import android.content.Intent
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.BuildConfig
-import com.google.android.gms.fitness.FitnessOptions
-import com.google.android.gms.fitness.data.DataType
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.auth.FirebaseUser
@@ -24,7 +21,6 @@ import com.tianhaoz95.lifestyletrackervoice_first.types.HydrationRecord
 import com.tianhaoz95.lifestyletrackervoice_first.types.HydrationReport
 import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemCategory
 import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemUnit
-import com.tianhaoz95.lifestyletrackervoice_first.types.report.CurrentDaySummary
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
