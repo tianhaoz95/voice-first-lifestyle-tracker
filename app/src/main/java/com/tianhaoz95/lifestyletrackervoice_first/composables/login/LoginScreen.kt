@@ -1,18 +1,14 @@
 package com.tianhaoz95.lifestyletrackervoice_first.composables.login
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.Dp
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.tianhaoz95.lifestyletrackervoice_first.composables.theme.AppTheme
+import com.tianhaoz95.lifestyletrackervoice_first.models.LoginViewModel
 
 @Composable
 fun LoginScreenContent(

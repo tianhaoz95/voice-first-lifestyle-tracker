@@ -1,10 +1,13 @@
-package com.tianhaoz95.lifestyletrackervoice_first.composables.login
+package com.tianhaoz95.lifestyletrackervoice_first.models
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class LoginViewModel : ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor() : ViewModel() {
     private val _status = MutableLiveData<String>("")
     val status: LiveData<String> = _status
 

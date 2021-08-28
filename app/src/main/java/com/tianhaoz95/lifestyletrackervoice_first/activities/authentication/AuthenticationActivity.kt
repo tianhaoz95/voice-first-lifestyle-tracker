@@ -3,10 +3,11 @@ package com.tianhaoz95.lifestyletrackervoice_first.activities.authentication
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.tianhaoz95.lifestyletrackervoice_first.composables.login.LoginScreen
-import com.tianhaoz95.lifestyletrackervoice_first.composables.login.LoginViewModel
+import com.tianhaoz95.lifestyletrackervoice_first.models.LoginViewModel
 import com.tianhaoz95.lifestyletrackervoice_first.services.UserDataService
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -14,7 +15,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AuthenticationActivity : AppCompatActivity() {
     @Inject lateinit var userDataService: UserDataService
-    private val viewModel: LoginViewModel = LoginViewModel()
+    private val _model: LoginViewModel by viewModels()
     private val signInLauncher = registerForActivityResult(
         FirebaseAuthUIActivityResultContract()
     ) { res -> this.onSignInResult(res) }
@@ -23,9 +24,9 @@ class AuthenticationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             LoginScreen(
-                viewModel = viewModel,
+                viewModel = _model,
                 onSignIn = {
-                    viewModel.setNewStatus(
+                    _model.setNewStatus(
                         "",
                         ""
                     )
@@ -41,7 +42,7 @@ class AuthenticationActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK) {
             finish()
         } else {
-            viewModel.setNewStatus(
+            _model.setNewStatus(
                 result.resultCode.toString(),
                 result.idpResponse.toString()
             )
