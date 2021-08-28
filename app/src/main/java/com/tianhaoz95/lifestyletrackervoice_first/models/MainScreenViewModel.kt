@@ -1,10 +1,13 @@
-package com.tianhaoz95.lifestyletrackervoice_first.composables.main
+package com.tianhaoz95.lifestyletrackervoice_first.models
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MainScreenViewModel : ViewModel() {
+@HiltViewModel
+class MainScreenViewModel @Inject constructor() : ViewModel() {
     private val _isReady = MutableLiveData(false)
     val isReady: LiveData<Boolean> = _isReady
 

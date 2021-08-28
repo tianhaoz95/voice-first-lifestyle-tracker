@@ -5,13 +5,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tianhaoz95.lifestyletrackervoice_first.activities.menu.MenuActivity
 import com.tianhaoz95.lifestyletrackervoice_first.activities.report.ShowReportActivity
 import com.tianhaoz95.lifestyletrackervoice_first.activities.settings.SettingsActivity
 import com.tianhaoz95.lifestyletrackervoice_first.composables.main.MainScreen
-import com.tianhaoz95.lifestyletrackervoice_first.composables.main.MainScreenViewModel
+import com.tianhaoz95.lifestyletrackervoice_first.models.LoginViewModel
+import com.tianhaoz95.lifestyletrackervoice_first.models.MainScreenViewModel
 import com.tianhaoz95.lifestyletrackervoice_first.services.UserDataService
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -20,7 +22,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var userDataService: UserDataService
-    private val viewModel: MainScreenViewModel = MainScreenViewModel()
+    private val model: MainScreenViewModel by viewModels()
     private val tag: String = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,11 +32,11 @@ class MainActivity : AppCompatActivity() {
             getIsDeveloper = { getDeveloperIdentity() }
         )
         maybeLaunchFeature(intent)
-        viewModel.updateIsReady(true)
-        viewModel.updateShowReport(userDataService.isReportEnabled)
+        model.updateIsReady(true)
+        model.updateShowReport(userDataService.isReportEnabled)
         setContent {
             MainScreen(
-                viewModel = viewModel,
+                viewModel = model,
                 addRecordHandler = { addRecordHandler() },
                 reportsHandler = { reportsHandler() },
                 settingsHandler = { settingsHandler() },

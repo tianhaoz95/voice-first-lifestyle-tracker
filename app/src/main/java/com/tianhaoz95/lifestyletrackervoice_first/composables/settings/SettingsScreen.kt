@@ -11,6 +11,7 @@ import com.tianhaoz95.lifestyletrackervoice_first.composables.settings.account.A
 import com.tianhaoz95.lifestyletrackervoice_first.composables.settings.developer.DeveloperSettings
 import com.tianhaoz95.lifestyletrackervoice_first.composables.settings.linking.AccountLinkingSettings
 import com.tianhaoz95.lifestyletrackervoice_first.composables.theme.AppTheme
+import com.tianhaoz95.lifestyletrackervoice_first.models.SettingsViewModel
 
 @Composable
 fun SettingsScreenContent(

@@ -7,16 +7,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.tianhaoz95.lifestyletrackervoice_first.composables.theme.AppTheme
 import com.tianhaoz95.lifestyletrackervoice_first.models.LoginViewModel
 
 @Composable
 fun LoginScreenContent(
-    viewModel: LoginViewModel,
-    onSignIn: () -> Unit
+    model: LoginViewModel = viewModel()
 ) {
-    val status: String by viewModel.status.observeAsState("")
-    val details: String by viewModel.details.observeAsState("")
+    val status: String by model.status.observeAsState("")
+    val details: String by model.details.observeAsState("")
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -49,17 +49,14 @@ fun LoginScreenContent(
                 .weight(1.0F),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            LoginButton(onSignIn)
+            LoginButton()
         }
     }
 }
 
 @Composable
-fun LoginScreen(
-    viewModel: LoginViewModel,
-    onSignIn: () -> Unit
-) {
+fun LoginScreen() {
     AppTheme {
-        LoginScreenContent(viewModel, onSignIn)
+        LoginScreenContent()
     }
 }

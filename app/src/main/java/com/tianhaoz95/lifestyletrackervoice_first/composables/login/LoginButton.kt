@@ -11,10 +11,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.tianhaoz95.lifestyletrackervoice_first.models.LoginViewModel
 
 @Composable
 fun LoginButton(
-    onSignIn: () -> Unit
+    model: LoginViewModel = viewModel()
 ) {
     val topLeftCurveRadius: Float = 16.0F
     Row(
@@ -23,7 +25,7 @@ fun LoginButton(
     ) {
         Spacer(modifier = Modifier.weight(1.0F))
         OutlinedButton(
-            onClick = { onSignIn() },
+            onClick = { model.launchSignIn() },
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(2.0F),

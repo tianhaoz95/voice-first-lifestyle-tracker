@@ -1,10 +1,13 @@
-package com.tianhaoz95.lifestyletrackervoice_first.composables.menu
+package com.tianhaoz95.lifestyletrackervoice_first.models
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MenuScreenViewModel : ViewModel() {
+@HiltViewModel
+class MenuScreenViewModel @Inject constructor() : ViewModel() {
     private val _expandType = MutableLiveData(false)
     val expandType: LiveData<Boolean> = _expandType
 

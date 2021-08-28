@@ -8,7 +8,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
-import com.tianhaoz95.lifestyletrackervoice_first.composables.settings.SettingsViewModel
+import com.tianhaoz95.lifestyletrackervoice_first.models.SettingsViewModel
 
 @Composable
 fun AccountLinkingSettingsTitle() {

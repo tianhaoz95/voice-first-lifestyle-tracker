@@ -15,24 +15,16 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AuthenticationActivity : AppCompatActivity() {
     @Inject lateinit var userDataService: UserDataService
-    private val _model: LoginViewModel by viewModels()
+    private val model: LoginViewModel by viewModels()
     private val signInLauncher = registerForActivityResult(
         FirebaseAuthUIActivityResultContract()
     ) { res -> this.onSignInResult(res) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        model.setLauncher(signInLauncher)
         setContent {
-            LoginScreen(
-                viewModel = _model,
-                onSignIn = {
-                    _model.setNewStatus(
-                        "",
-                        ""
-                    )
-                    signInLauncher.launch(userDataService.getSignInIntent())
-                }
-            )
+            LoginScreen()
         }
     }
 
@@ -42,7 +34,7 @@ class AuthenticationActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK) {
             finish()
         } else {
-            _model.setNewStatus(
+            model.setNewStatus(
                 result.resultCode.toString(),
                 result.idpResponse.toString()
             )

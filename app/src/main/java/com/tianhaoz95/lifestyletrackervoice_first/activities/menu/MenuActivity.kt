@@ -3,16 +3,16 @@ package com.tianhaoz95.lifestyletrackervoice_first.activities.menu
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.tianhaoz95.lifestyletrackervoice_first.activities.record.AddActivity
 import com.tianhaoz95.lifestyletrackervoice_first.composables.menu.MenuScreen
-import com.tianhaoz95.lifestyletrackervoice_first.composables.menu.MenuScreenViewModel
+import com.tianhaoz95.lifestyletrackervoice_first.models.MenuScreenViewModel
 import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemCategory
 import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemUnit
-import com.tianhaoz95.lifestyletrackervoice_first.types.menu.MenuItem
 
 class MenuActivity : AppCompatActivity() {
-    private val viewModel: MenuScreenViewModel = MenuScreenViewModel()
+    private val model: MenuScreenViewModel by viewModels()
     private val typeList: List<IntakeItemCategory> = listOf(
         IntakeItemCategory.Soda,
         IntakeItemCategory.Coffee,
@@ -30,7 +30,7 @@ class MenuActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MenuScreen(
-                viewModel= viewModel,
+                viewModel= model,
                 typeList = typeList,
                 unitList = unitList,
                 onAddHandler = { onAddHandler() }
@@ -40,7 +40,7 @@ class MenuActivity : AppCompatActivity() {
 
     private fun onAddHandler() {
         val intent = Intent(this, AddActivity::class.java)
-        val selectedItem = typeList[viewModel.getCurrentTypeIndex()]
+        val selectedItem = typeList[model.getCurrentTypeIndex()]
         intent.putExtra("name", selectedItem.toString())
         startActivity(intent)
     }

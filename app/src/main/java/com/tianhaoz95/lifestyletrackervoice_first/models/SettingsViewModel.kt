@@ -1,10 +1,13 @@
-package com.tianhaoz95.lifestyletrackervoice_first.composables.settings
+package com.tianhaoz95.lifestyletrackervoice_first.models
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class SettingsViewModel : ViewModel() {
+@HiltViewModel
+class SettingsViewModel @Inject constructor() : ViewModel() {
     private val _shouldReportCrash = MutableLiveData(false)
     val shouldReportCrash: LiveData<Boolean> = _shouldReportCrash
 
