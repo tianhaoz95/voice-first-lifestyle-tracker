@@ -3,7 +3,6 @@ package com.tianhaoz95.lifestyletrackervoice_first.composables.login
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
@@ -12,11 +11,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.tianhaoz95.lifestyletrackervoice_first.models.LoginViewModel
+import com.tianhaoz95.lifestyletrackervoice_first.models.LoginScreenModel
 
 @Composable
 fun LoginButton(
-    model: LoginViewModel = viewModel()
+    model: LoginScreenModel = viewModel()
 ) {
     val topLeftCurveRadius: Float = 16.0F
     Row(

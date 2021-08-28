@@ -12,7 +12,6 @@ import com.tianhaoz95.lifestyletrackervoice_first.activities.menu.MenuActivity
 import com.tianhaoz95.lifestyletrackervoice_first.activities.report.ShowReportActivity
 import com.tianhaoz95.lifestyletrackervoice_first.activities.settings.SettingsActivity
 import com.tianhaoz95.lifestyletrackervoice_first.composables.main.MainScreen
-import com.tianhaoz95.lifestyletrackervoice_first.models.LoginViewModel
 import com.tianhaoz95.lifestyletrackervoice_first.models.MainScreenViewModel
 import com.tianhaoz95.lifestyletrackervoice_first.services.UserDataService
 import dagger.hilt.android.AndroidEntryPoint

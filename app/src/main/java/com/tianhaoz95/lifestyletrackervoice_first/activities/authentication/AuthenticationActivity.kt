@@ -7,7 +7,7 @@ import androidx.activity.viewModels
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.tianhaoz95.lifestyletrackervoice_first.composables.login.LoginScreen
-import com.tianhaoz95.lifestyletrackervoice_first.models.LoginViewModel
+import com.tianhaoz95.lifestyletrackervoice_first.models.LoginScreenModel
 import com.tianhaoz95.lifestyletrackervoice_first.services.UserDataService
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -15,7 +15,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AuthenticationActivity : AppCompatActivity() {
     @Inject lateinit var userDataService: UserDataService
-    private val model: LoginViewModel by viewModels()
+    private val model: LoginScreenModel by viewModels()
     private val signInLauncher = registerForActivityResult(
         FirebaseAuthUIActivityResultContract()
     ) { res -> this.onSignInResult(res) }

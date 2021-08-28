@@ -9,11 +9,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.tianhaoz95.lifestyletrackervoice_first.composables.theme.AppTheme
-import com.tianhaoz95.lifestyletrackervoice_first.models.LoginViewModel
+import com.tianhaoz95.lifestyletrackervoice_first.models.LoginScreenModel
 
 @Composable
 fun LoginScreenContent(
-    model: LoginViewModel = viewModel()
+    model: LoginScreenModel = viewModel()
 ) {
     val status: String by model.status.observeAsState("")
     val details: String by model.details.observeAsState("")

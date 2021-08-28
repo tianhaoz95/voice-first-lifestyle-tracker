@@ -10,7 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(
+class LoginScreenModel @Inject constructor(
     private val userDataService: UserDataService
 ) : ViewModel() {
     private lateinit var _launcher: ActivityResultLauncher<Intent>
