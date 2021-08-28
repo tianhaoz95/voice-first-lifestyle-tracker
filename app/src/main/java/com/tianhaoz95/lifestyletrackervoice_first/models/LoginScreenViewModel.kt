@@ -8,10 +8,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor() : ViewModel() {
-    private val _status = MutableLiveData<String>("")
+    private val _status = MutableLiveData("")
     val status: LiveData<String> = _status
 
-    private val _details = MutableLiveData<String>("")
+    private val _details = MutableLiveData("")
     val details: LiveData<String> = _details
 
     fun setNewStatus(newStatus: String, newDetails: String) {
