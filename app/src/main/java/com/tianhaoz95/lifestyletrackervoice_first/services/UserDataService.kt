@@ -47,6 +47,11 @@ class UserDataService @Inject constructor() {
         initializeRemoteConfig()
     }
 
+    fun isAuthenticated(): Boolean {
+        user = Firebase.auth.currentUser
+        return user != null
+    }
+
     private fun initializeDeveloperIdentifier(getIsDeveloper: () -> Boolean?) {
         val isDebugBuild: Boolean = BuildConfig.DEBUG
         isDeveloper = getIsDeveloper() ?: isDebugBuild

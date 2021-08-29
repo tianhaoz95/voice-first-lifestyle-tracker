@@ -5,9 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.tianhaoz95.lifestyletrackervoice_first.activities.authentication.AuthenticationActivity
 import com.tianhaoz95.lifestyletrackervoice_first.activities.menu.MenuActivity
 import com.tianhaoz95.lifestyletrackervoice_first.activities.report.ShowReportActivity
 import com.tianhaoz95.lifestyletrackervoice_first.activities.settings.SettingsActivity
@@ -23,16 +25,16 @@ class MainActivity : AppCompatActivity() {
     lateinit var userDataService: UserDataService
     private val model: MainScreenViewModel by viewModels()
     private val tag: String = "MainActivity"
+    private val authenticateLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { initializeData() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        userDataService.initialize(
-            context = this,
-            getIsDeveloper = { getDeveloperIdentity() }
-        )
-        maybeLaunchFeature(intent)
-        model.updateIsReady(true)
-        model.updateShowReport(userDataService.isReportEnabled)
+        if (!userDataService.isAuthenticated()) {
+            authenticateLauncher.launch(
+                Intent(this, AuthenticationActivity::class.java))
+        } else { initializeData() }
         setContent {
             MainScreen(
                 viewModel = model,
@@ -43,6 +45,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        maybeLaunchFeature(intent)
+    }
+
+    private fun initializeData() {
+        userDataService.initialize(
+            context = this,
+            getIsDeveloper = { getDeveloperIdentity() }
+        )
+        maybeLaunchFeature(intent)
+        model.updateIsReady(true)
+        model.updateShowReport(userDataService.isReportEnabled)
+    }
+
     private fun getDeveloperIdentity(): Boolean? {
         val sharedPref = getPreferences(Context.MODE_PRIVATE)
         return if (sharedPref.contains("isDeveloper")) {
@@ -50,11 +67,6 @@ class MainActivity : AppCompatActivity() {
         } else {
             null
         }
-    }
-
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        maybeLaunchFeature(intent)
     }
 
     private fun maybeLaunchFeature(intent: Intent?) {
