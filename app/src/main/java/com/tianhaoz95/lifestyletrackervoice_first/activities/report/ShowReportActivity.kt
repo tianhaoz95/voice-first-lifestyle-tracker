@@ -52,7 +52,6 @@ class ShowReportActivity : AppCompatActivity() {
 
     private fun initializeData() {
         userDataService.initialize(
-            context = this,
             getIsDeveloper = { getDeveloperIdentity() }
         )
         lifecycleScope.launch {
@@ -70,7 +69,7 @@ class ShowReportActivity : AppCompatActivity() {
     }
 
     private fun fetchRecords() {
-        userDataService.getCurrentDayHydration(this,
+        userDataService.getCurrentDayHydration(
             onError = { code, msg ->
                 viewModel.setNewStatus(
                     newStatus = code.toString(),

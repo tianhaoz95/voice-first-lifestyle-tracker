@@ -49,7 +49,6 @@ class AddActivity : AppCompatActivity() {
 
     private fun initializeData() {
         userDataService.initialize(
-            context = this,
             getIsDeveloper = { getDeveloperIdentity() }
         )
         lifecycleScope.launch {
@@ -76,7 +75,6 @@ class AddActivity : AppCompatActivity() {
 
     private fun addRecord(record: HydrationRecord) {
         userDataService.addHydrationRecord(
-            this,
             record,
             onError = { code, msg ->
                 viewModel.setNewStatus(

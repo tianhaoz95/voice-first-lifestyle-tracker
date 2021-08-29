@@ -21,6 +21,7 @@ import com.tianhaoz95.lifestyletrackervoice_first.types.HydrationRecord
 import com.tianhaoz95.lifestyletrackervoice_first.types.HydrationReport
 import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemCategory
 import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemUnit
+import java.lang.RuntimeException
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -39,10 +40,9 @@ class UserDataService @Inject constructor() {
     val currentDaySummary get() = HydrationReport(records).toCurrentDaySummary()
 
     fun initialize(
-        context: Context,
         getIsDeveloper: () -> Boolean?,
     ) {
-        maybeNeedAuthentication(context)
+        checkIsAuthenticated()
         initializeDeveloperIdentifier(getIsDeveloper)
         initializeRemoteConfig()
     }
@@ -50,6 +50,12 @@ class UserDataService @Inject constructor() {
     fun isAuthenticated(): Boolean {
         user = Firebase.auth.currentUser
         return user != null
+    }
+
+    private fun checkIsAuthenticated() {
+        if (!isAuthenticated()) {
+            throw RuntimeException("User not signed in")
+        }
     }
 
     private fun initializeDeveloperIdentifier(getIsDeveloper: () -> Boolean?) {
@@ -81,14 +87,6 @@ class UserDataService @Inject constructor() {
     val isReportEnabled: Boolean get() = remoteConfig.getBoolean(
         "show_report_in_menu")
 
-    fun maybeNeedAuthentication(context: Context): Unit {
-        user = Firebase.auth.currentUser
-        if (user == null || user!!.uid == null) {
-            val intent = Intent(context, AuthenticationActivity::class.java)
-            context.startActivity(intent)
-        }
-    }
-
     fun getSignInIntent(): Intent {
         val providers = arrayListOf(
             AuthUI.IdpConfig.EmailBuilder().build(),
@@ -115,12 +113,10 @@ class UserDataService @Inject constructor() {
     }
 
     fun addHydrationRecord(
-        context: Context,
         record: HydrationRecord,
         onError: (code: Int, msg: String) -> Unit,
         onSuccess: () -> Unit
     ) {
-        maybeNeedAuthentication(context)
         val dataRef: CollectionReference = getUserTrackingDataRef(user?.uid!!)
         dataRef.add(record.toDatabaseEntry())
             .addOnSuccessListener {
@@ -132,11 +128,9 @@ class UserDataService @Inject constructor() {
     }
 
     fun getCurrentDayHydration(
-        context: Context,
         onError: (code: Int, msg: String) -> Unit,
         onSuccess: () -> Unit,
     ) {
-        maybeNeedAuthentication(context)
         val dataRef: CollectionReference = getUserTrackingDataRef(user?.uid!!)
         val timeWindowDataRef = dataRef
             .whereGreaterThan("timestamp", getCurrentDayStartTimestamp())

@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeData() {
         userDataService.initialize(
-            context = this,
             getIsDeveloper = { getDeveloperIdentity() }
         )
         maybeLaunchFeature(intent)
