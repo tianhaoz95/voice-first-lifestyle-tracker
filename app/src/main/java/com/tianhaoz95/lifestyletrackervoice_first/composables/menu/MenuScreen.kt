@@ -37,38 +37,7 @@ fun MenuScreenContent(
                 .weight(1.0F),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(
-                modifier = Modifier.weight(2.0F),
-                horizontalArrangement = Arrangement.End
-            ) {
-                Text(
-                    text = "Intake type:",
-                    modifier = Modifier.padding(Dp(8.0F)),
-                    style = MaterialTheme.typography.h6,
-                    color = MaterialTheme.colors.primary
-                )
-            }
-            Column(modifier = Modifier.weight(1.0F)) {
-                IntakeTypeMenu(viewModel, typeList)
-            }
-        }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1.0F),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column(
-                modifier = Modifier.weight(2.0F)
-            ) {
-                QuantityInput(viewModel)
-            }
-            Column(
-                modifier = Modifier
-                    .weight(1.0F)
-            ) {
-                IntakeUnitMenu(viewModel, unitList)
-            }
+            MenuScreenInput(viewModel, typeList, unitList)
         }
         Row(
             modifier = Modifier

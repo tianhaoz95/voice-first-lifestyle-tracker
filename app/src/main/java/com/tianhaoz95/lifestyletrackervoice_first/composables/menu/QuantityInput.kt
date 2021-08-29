@@ -34,7 +34,7 @@ fun QuantityInput(
                 .fillMaxWidth()
                 .weight(2.0F)
                 .padding(horizontal = Dp(8.0F)),
-            horizontalArrangement = Arrangement.End
+            horizontalArrangement = Arrangement.Start
         ) {
             Text(
                 text = "Quantity: ",
