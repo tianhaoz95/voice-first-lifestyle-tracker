@@ -36,6 +36,19 @@ class UserDataService @Inject constructor() {
     private var isDeveloper: Boolean = false
     var records: MutableList<HydrationRecord> = mutableListOf()
 
+    val typeList: List<IntakeItemCategory> get() = listOf(
+        IntakeItemCategory.Soda,
+        IntakeItemCategory.Coffee,
+        IntakeItemCategory.Water,
+    )
+    val unitList: List<IntakeItemUnit> get() = listOf(
+        IntakeItemUnit.Liter,
+        IntakeItemUnit.Milliliter,
+        IntakeItemUnit.Can,
+        IntakeItemUnit.Bottle,
+        IntakeItemUnit.Cup,
+    )
+
     val recordCount get() = records.size
     val currentDaySummary get() = HydrationReport(records).toCurrentDaySummary()
 

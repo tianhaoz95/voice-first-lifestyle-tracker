@@ -12,11 +12,7 @@ import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemCategory
 import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemUnit
 
 @Composable
-fun MenuScreenContent(
-    typeList: List<IntakeItemCategory>,
-    unitList: List<IntakeItemUnit>,
-    onAddHandler: () -> Unit,
-) {
+fun MenuScreenContent(onAddHandler: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -35,7 +31,7 @@ fun MenuScreenContent(
                 .weight(1.0F),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            MenuScreenInput(typeList, unitList)
+            MenuScreenInput()
         }
         Row(
             modifier = Modifier
@@ -49,16 +45,8 @@ fun MenuScreenContent(
 }
 
 @Composable
-fun MenuScreen(
-    typeList: List<IntakeItemCategory>,
-    unitList: List<IntakeItemUnit>,
-    onAddHandler: () -> Unit
-) {
+fun MenuScreen(onAddHandler: () -> Unit) {
     AppTheme {
-        MenuScreenContent(
-            typeList,
-            unitList,
-            onAddHandler,
-        )
+        MenuScreenContent(onAddHandler)
     }
 }

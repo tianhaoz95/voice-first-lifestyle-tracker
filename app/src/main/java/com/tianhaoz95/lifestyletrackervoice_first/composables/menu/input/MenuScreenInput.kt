@@ -16,10 +16,7 @@ import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemCategory
 import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemUnit
 
 @Composable
-fun MenuScreenInput(
-    typeList: List<IntakeItemCategory>,
-    unitList: List<IntakeItemUnit>
-) {
+fun MenuScreenInput() {
     Column(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
@@ -37,7 +34,7 @@ fun MenuScreenInput(
                 color = MaterialTheme.colors.primary
             )
             Column(modifier = Modifier.weight(1.0F)) {
-                IntakeTypeMenu(typeList)
+                IntakeTypeMenu()
             }
         }
         Row(
@@ -55,7 +52,7 @@ fun MenuScreenInput(
                     .weight(1.0F),
                 horizontalAlignment = Alignment.Start
             ) {
-                IntakeUnitMenu(unitList)
+                IntakeUnitMenu()
             }
         }
     }

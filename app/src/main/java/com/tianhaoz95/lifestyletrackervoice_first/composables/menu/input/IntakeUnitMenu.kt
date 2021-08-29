@@ -17,7 +17,6 @@ import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemUnit
 
 @Composable
 fun IntakeUnitMenu(
-    unitList: List<IntakeItemUnit>,
     model: MenuScreenViewModel = viewModel()
 ) {
     val expand: Boolean by model
@@ -28,7 +27,7 @@ fun IntakeUnitMenu(
     Box(modifier = Modifier.clickable {
         model.flipExpandUnit()
     }) {
-        MenuUnitCard(unitList[index])
+        MenuUnitCard(model.unitList[index])
     }
     DropdownMenu(
         expanded = expand,
@@ -39,7 +38,7 @@ fun IntakeUnitMenu(
             .fillMaxWidth()
             .padding(horizontal = Dp(10.0F)),
     ) {
-        unitList.forEachIndexed { index, menuItem ->
+        model.unitList.forEachIndexed { index, menuItem ->
             DropdownMenuItem(onClick = {
                 model.updateUnitIndex(index)
                 model.updateExpandUnit(false)

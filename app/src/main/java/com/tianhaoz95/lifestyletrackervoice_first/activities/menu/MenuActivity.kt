@@ -10,36 +10,22 @@ import com.tianhaoz95.lifestyletrackervoice_first.composables.menu.MenuScreen
 import com.tianhaoz95.lifestyletrackervoice_first.models.MenuScreenViewModel
 import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemCategory
 import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemUnit
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MenuActivity : AppCompatActivity() {
     private val model: MenuScreenViewModel by viewModels()
-    private val typeList: List<IntakeItemCategory> = listOf(
-        IntakeItemCategory.Soda,
-        IntakeItemCategory.Coffee,
-        IntakeItemCategory.Water,
-    )
-    private val unitList: List<IntakeItemUnit> = listOf(
-        IntakeItemUnit.Liter,
-        IntakeItemUnit.Milliliter,
-        IntakeItemUnit.Can,
-        IntakeItemUnit.Bottle,
-        IntakeItemUnit.Cup,
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MenuScreen(
-                typeList = typeList,
-                unitList = unitList,
-                onAddHandler = { onAddHandler() }
-            )
+            MenuScreen(onAddHandler = { onAddHandler() })
         }
     }
 
     private fun onAddHandler() {
         val intent = Intent(this, AddActivity::class.java)
-        val selectedItem = typeList[model.getCurrentTypeIndex()]
+        val selectedItem = model.typeList[model.getCurrentTypeIndex()]
         intent.putExtra("name", selectedItem.toString())
         startActivity(intent)
     }

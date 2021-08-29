@@ -3,11 +3,16 @@ package com.tianhaoz95.lifestyletrackervoice_first.models
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.tianhaoz95.lifestyletrackervoice_first.services.UserDataService
+import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemCategory
+import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemUnit
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MenuScreenViewModel @Inject constructor() : ViewModel() {
+class MenuScreenViewModel @Inject constructor(
+    private val userDataService: UserDataService
+) : ViewModel() {
     private val _expandType = MutableLiveData(false)
     val expandType: LiveData<Boolean> = _expandType
 
@@ -73,4 +78,7 @@ class MenuScreenViewModel @Inject constructor() : ViewModel() {
     fun getQuantity(): Float {
         return _quantity.value?.toFloatOrNull() ?: 0.0F
     }
+
+    val unitList: List<IntakeItemUnit> get() = userDataService.unitList
+    val typeList: List<IntakeItemCategory> get() = userDataService.typeList
 }

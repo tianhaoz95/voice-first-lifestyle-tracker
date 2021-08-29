@@ -15,7 +15,6 @@ import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemCategory
 
 @Composable
 fun IntakeTypeMenu(
-    typeList: List<IntakeItemCategory>,
     model: MenuScreenViewModel = viewModel()
 ) {
     val expand: Boolean by model
@@ -26,7 +25,7 @@ fun IntakeTypeMenu(
     Box(modifier = Modifier.clickable {
         model.flipExpandType()
     }) {
-        MenuTypeCard(typeList[index])
+        MenuTypeCard(model.typeList[index])
     }
     DropdownMenu(
         expanded = expand,
@@ -35,7 +34,7 @@ fun IntakeTypeMenu(
         },
         modifier = Modifier.fillMaxWidth(),
     ) {
-        typeList.forEachIndexed { index, menuItem ->
+        model.typeList.forEachIndexed { index, menuItem ->
             DropdownMenuItem(onClick = {
                 model.updateTypeIndex(index)
                 model.updateExpandType(false)

@@ -6,12 +6,13 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.fitness.Fitness
 import com.tianhaoz95.lifestyletrackervoice_first.activities.authentication.AuthenticationActivity
 import com.tianhaoz95.lifestyletrackervoice_first.composables.record.AddRecordScreen
-import com.tianhaoz95.lifestyletrackervoice_first.composables.record.AddRecordViewModel
+import com.tianhaoz95.lifestyletrackervoice_first.models.AddRecordViewModel
 import com.tianhaoz95.lifestyletrackervoice_first.services.integrations.GoogleFitService
 import com.tianhaoz95.lifestyletrackervoice_first.services.UserDataService
 import com.tianhaoz95.lifestyletrackervoice_first.types.HydrationRecord
@@ -22,13 +23,15 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddActivity : AppCompatActivity() {
-    @Inject
-    lateinit var userDataService: UserDataService
+    companion object {
+        private const val TAG: String = "AddActivity"
+    }
 
     @Inject
+    lateinit var userDataService: UserDataService
+    @Inject
     lateinit var googleFitService: GoogleFitService
-    private val tag: String = "AddActivity"
-    private val viewModel: AddRecordViewModel = AddRecordViewModel()
+    private val model: AddRecordViewModel by viewModels()
     private val authenticateLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { initializeData() }
@@ -43,7 +46,7 @@ class AddActivity : AppCompatActivity() {
         }
 
         setContent {
-            AddRecordScreen(viewModel)
+            AddRecordScreen()
         }
     }
 
@@ -77,13 +80,13 @@ class AddActivity : AppCompatActivity() {
         userDataService.addHydrationRecord(
             record,
             onError = { code, msg ->
-                viewModel.setNewStatus(
+                model.setNewStatus(
                     newStatus = code.toString(),
                     newDetails = msg
                 )
             },
             onSuccess = {
-                viewModel.setNewStatus(
+                model.setNewStatus(
                     newStatus = "SUCCESS",
                     newDetails = "The record has been added."
                 )
@@ -104,12 +107,12 @@ class AddActivity : AppCompatActivity() {
                 )
                 .addOnSuccessListener { response ->
                     Log.i(
-                        tag,
+                        TAG,
                         "Add to Fit response: $response"
                     )
                 }
                 .addOnFailureListener { e ->
-                    Log.e(tag, "Add to Fit error: ${e.message}")
+                    Log.e(TAG, "Add to Fit error: ${e.message}")
                 }
         }
     }
