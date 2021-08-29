@@ -1,4 +1,4 @@
-package com.tianhaoz95.lifestyletrackervoice_first.composables.menu
+package com.tianhaoz95.lifestyletrackervoice_first.composables.menu.input
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
