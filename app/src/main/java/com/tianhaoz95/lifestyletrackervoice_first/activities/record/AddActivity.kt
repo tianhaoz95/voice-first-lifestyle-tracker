@@ -8,7 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.fitness.Fitness
 import com.tianhaoz95.lifestyletrackervoice_first.composables.record.AddRecordScreen
 import com.tianhaoz95.lifestyletrackervoice_first.composables.record.AddRecordViewModel
-import com.tianhaoz95.lifestyletrackervoice_first.services.GoogleFitService
+import com.tianhaoz95.lifestyletrackervoice_first.services.integrations.GoogleFitService
 import com.tianhaoz95.lifestyletrackervoice_first.services.UserDataService
 import com.tianhaoz95.lifestyletrackervoice_first.types.HydrationRecord
 import dagger.hilt.android.AndroidEntryPoint

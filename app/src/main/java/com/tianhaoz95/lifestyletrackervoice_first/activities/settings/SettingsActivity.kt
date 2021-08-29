@@ -11,7 +11,7 @@ import com.google.android.gms.fitness.Fitness
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tianhaoz95.lifestyletrackervoice_first.composables.settings.SettingsScreen
 import com.tianhaoz95.lifestyletrackervoice_first.models.SettingsViewModel
-import com.tianhaoz95.lifestyletrackervoice_first.services.GoogleFitService
+import com.tianhaoz95.lifestyletrackervoice_first.services.integrations.GoogleFitService
 import com.tianhaoz95.lifestyletrackervoice_first.services.UserDataService
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

@@ -1,4 +1,4 @@
-package com.tianhaoz95.lifestyletrackervoice_first.services
+package com.tianhaoz95.lifestyletrackervoice_first.services.integrations
 
 import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignIn
