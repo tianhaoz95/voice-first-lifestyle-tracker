@@ -10,15 +10,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.tianhaoz95.lifestyletrackervoice_first.models.MenuScreenViewModel
 import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemCategory
 import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemUnit
 
 @Composable
 fun MenuScreenInput(
-    viewModel: MenuScreenViewModel,
     typeList: List<IntakeItemCategory>,
-    unitList: List<IntakeItemUnit>,
+    unitList: List<IntakeItemUnit>
 ) {
     Column(
         verticalArrangement = Arrangement.Top,
@@ -37,7 +37,7 @@ fun MenuScreenInput(
                 color = MaterialTheme.colors.primary
             )
             Column(modifier = Modifier.weight(1.0F)) {
-                IntakeTypeMenu(viewModel, typeList)
+                IntakeTypeMenu(typeList)
             }
         }
         Row(
@@ -48,14 +48,14 @@ fun MenuScreenInput(
                 modifier = Modifier.weight(1.0F),
                 horizontalAlignment = Alignment.Start
             ) {
-                QuantityInput(viewModel)
+                QuantityInput()
             }
             Column(
                 modifier = Modifier
                     .weight(1.0F),
                 horizontalAlignment = Alignment.Start
             ) {
-                IntakeUnitMenu(viewModel, unitList)
+                IntakeUnitMenu(unitList)
             }
         }
     }

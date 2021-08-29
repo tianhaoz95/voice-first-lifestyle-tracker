@@ -12,14 +12,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.tianhaoz95.lifestyletrackervoice_first.models.MenuScreenViewModel
 
 @Composable
 fun MenuScreenSubmission(
-    viewModel: MenuScreenViewModel,
     onAddHandler: () -> Unit,
+    model: MenuScreenViewModel = viewModel()
 ) {
-    val canSubmit: Boolean by viewModel
+    val canSubmit: Boolean by model
         .canSubmit.observeAsState(true)
     val topLeftCurveRadius: Float = 16.0F
 

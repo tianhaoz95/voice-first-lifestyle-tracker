@@ -9,35 +9,36 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.tianhaoz95.lifestyletrackervoice_first.models.MenuScreenViewModel
 import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemCategory
 
 @Composable
 fun IntakeTypeMenu(
-    viewModel: MenuScreenViewModel,
     typeList: List<IntakeItemCategory>,
+    model: MenuScreenViewModel = viewModel()
 ) {
-    val expand: Boolean by viewModel
+    val expand: Boolean by model
         .expandType.observeAsState(false)
-    val index: Int by viewModel
+    val index: Int by model
         .indexType.observeAsState(0)
 
     Box(modifier = Modifier.clickable {
-        viewModel.flipExpandType()
+        model.flipExpandType()
     }) {
         MenuTypeCard(typeList[index])
     }
     DropdownMenu(
         expanded = expand,
         onDismissRequest = {
-            viewModel.updateExpandType(false)
+            model.updateExpandType(false)
         },
         modifier = Modifier.fillMaxWidth(),
     ) {
         typeList.forEachIndexed { index, menuItem ->
             DropdownMenuItem(onClick = {
-                viewModel.updateTypeIndex(index)
-                viewModel.updateExpandType(false)
+                model.updateTypeIndex(index)
+                model.updateExpandType(false)
             }) {
                 MenuTypeCard(menuItem)
             }

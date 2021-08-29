@@ -13,15 +13,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.tianhaoz95.lifestyletrackervoice_first.models.MenuScreenViewModel
 
 @Composable
 fun QuantityInput(
-    viewModel: MenuScreenViewModel,
+    model: MenuScreenViewModel = viewModel()
 ) {
-    val quantity: String by viewModel
+    val quantity: String by model
         .quantity.observeAsState("")
-    val quantityAtError: Boolean by viewModel
+    val quantityAtError: Boolean by model
         .quantityAtError.observeAsState(false)
 
     Row(
@@ -46,8 +47,8 @@ fun QuantityInput(
             value = quantity,
             onValueChange = { it ->
                 val newValue: Float? = it.toFloatOrNull()
-                viewModel.updateQuantity(it)
-                viewModel.updateQuantityAtError(newValue == null)
+                model.updateQuantity(it)
+                model.updateQuantityAtError(newValue == null)
             },
             isError = quantityAtError,
             keyboardOptions = KeyboardOptions(

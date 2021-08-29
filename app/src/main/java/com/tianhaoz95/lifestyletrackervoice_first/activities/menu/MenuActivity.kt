@@ -30,7 +30,6 @@ class MenuActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MenuScreen(
-                viewModel= model,
                 typeList = typeList,
                 unitList = unitList,
                 onAddHandler = { onAddHandler() }
