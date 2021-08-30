@@ -2,11 +2,12 @@ package com.tianhaoz95.lifestyletrackervoice_first.activities.settings
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.fitness.Fitness
+import com.tianhaoz95.lifestyletrackervoice_first.blocs.AuthenticationController
+import com.tianhaoz95.lifestyletrackervoice_first.blocs.GoogleFitController
 import com.tianhaoz95.lifestyletrackervoice_first.composables.settings.SettingsScreen
 import com.tianhaoz95.lifestyletrackervoice_first.models.SettingsViewModel
 import com.tianhaoz95.lifestyletrackervoice_first.services.UserDataService
@@ -30,6 +31,13 @@ class SettingsActivity : AppCompatActivity() {
 
     @Inject
     lateinit var localSettingsManager: LocalSettingsManager
+
+    @Inject
+    lateinit var googleFitController: GoogleFitController
+
+    @Inject
+    lateinit var authenticationController: AuthenticationController
+
     private val model: SettingsViewModel by viewModels()
 
     /**
@@ -52,29 +60,23 @@ class SettingsActivity : AppCompatActivity() {
             linkGoogleFitRequestCode -> {
                 when (resultCode) {
                     RESULT_OK -> {
-                        println("tianhaoz_debug: link success")
+                        Log.i(TAG, "Fit Link success.")
                         model.updateIsGoogleFitLinked(
                             googleFitService.isLinked(this)
                         )
                     }
-                    else -> println("tianhaoz_debug: link error $requestCode $resultCode")
+                    else -> Log.e(TAG, "Fit Link error: $resultCode")
                 }
             }
             else -> {
-
+                Log.e(TAG, "Invalid request code: $requestCode")
             }
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        model.updateIsDeveloper(localSettingsManager.getIsDeveloper())
-        model.updateShouldReportCrash(
-            localSettingsManager.getShouldReportCrash()
-        )
-        model.updateIsGoogleFitLinked(
-            googleFitService.isLinked(this)
-        )
+        refreshSettings()
         setContent {
             SettingsScreen(
                 onShouldReportCrashChange = {
@@ -83,60 +85,47 @@ class SettingsActivity : AppCompatActivity() {
                 onIsDeveloperChange = {
                     updateIsDeveloper(it)
                 },
-                linkGoogleFitHandler = { linkFit() },
-                unlinkGoogleFitHandler = { unlinkFit() },
-                onSignOut = { onSignOut() }
+                linkGoogleFitHandler = {
+                    googleFitController.link()
+
+                },
+                unlinkGoogleFitHandler = {
+                    googleFitController.unlink(onUnlinkDone = { hasError, msg ->
+                        Log.i(
+                            TAG,
+                            "Link Fit status: $hasError, message: $msg"
+                        )
+                        refreshGoogleFitStatus()
+                    })
+                },
+                onSignOut = { authenticationController.signOut() }
             )
         }
     }
 
-    private fun unlinkFit() {
-        Fitness.getConfigClient(
-            this, googleFitService.getAccount(this)
+    private fun refreshSettings() {
+        model.updateIsDeveloper(
+            localSettingsManager.getIsDeveloper()
         )
-            .disableFit()
-            .addOnSuccessListener {
-                GoogleSignIn
-                    .getClient(this, googleFitService.signInOptions)
-                    .revokeAccess()
-                model.updateIsGoogleFitLinked(
-                    googleFitService.isLinked(this)
-                )
-            }
-            .addOnFailureListener { e ->
-                model.updateIsGoogleFitLinked(
-                    googleFitService.isLinked(this)
-                )
-            }
+        model.updateShouldReportCrash(
+            localSettingsManager.getShouldReportCrash()
+        )
+        refreshGoogleFitStatus()
     }
 
-    private fun linkFit() {
-        val account = googleFitService.getAccount(this)
-        if (!googleFitService.isLinked(this)) {
-            GoogleSignIn.requestPermissions(
-                this,
-                linkGoogleFitRequestCode,
-                account,
-                googleFitService.options
-            )
-        }
-    }
-
-    private fun onSignOut() {
-        userDataService.signOut(this) {
-            finish()
-        }
+    private fun refreshGoogleFitStatus() {
+        model.updateIsGoogleFitLinked(googleFitService.isLinked(this))
     }
 
     private fun updateCrashReporting(update: Boolean) {
-        model.updateShouldReportCrash(update)
         userDataService.updateShouldReportCrash(update)
         localSettingsManager.setShouldReportCrash(update)
+        model.updateShouldReportCrash(update)
     }
 
     private fun updateIsDeveloper(update: Boolean) {
         userDataService.updateIsDeveloper(update)
-        model.updateIsDeveloper(update)
         localSettingsManager.setIsDeveloper(update)
+        model.updateIsDeveloper(update)
     }
 }

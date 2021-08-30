@@ -29,6 +29,11 @@ import javax.inject.Singleton
 
 @Singleton
 class UserDataService @Inject constructor() {
+    companion object {
+        private const val userDataCollection: String = "user_data"
+        private const val RecordCollection: String = "tracking_data"
+    }
+
     private var db: FirebaseFirestore = Firebase.firestore
     private var user: FirebaseUser? = Firebase.auth.currentUser
     private var firebaseAnalytics: FirebaseAnalytics = Firebase.analytics
@@ -180,9 +185,9 @@ class UserDataService @Inject constructor() {
 
     private fun getUserTrackingDataRef(uid: String): CollectionReference {
         return db
-            .collection("user_data")
+            .collection(userDataCollection)
             .document(uid)
-            .collection("tracking_data")
+            .collection(RecordCollection)
     }
 
     private fun getCurrentDayStartTimestamp(): Long {

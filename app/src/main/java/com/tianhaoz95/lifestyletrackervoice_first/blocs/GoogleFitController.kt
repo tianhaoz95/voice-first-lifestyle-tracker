@@ -3,6 +3,7 @@ package com.tianhaoz95.lifestyletrackervoice_first.blocs
 import android.app.Activity
 import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.fitness.Fitness
 import com.tianhaoz95.lifestyletrackervoice_first.services.integrations.GoogleFitService
 import dagger.hilt.android.qualifiers.ActivityContext
 import javax.inject.Inject
@@ -27,5 +28,21 @@ class GoogleFitController @Inject constructor(
                 googleFitService.options
             )
         }
+    }
+
+    fun unlink(onUnlinkDone: (hasError: Boolean, msg: String) -> Unit) {
+        Fitness.getConfigClient(
+            activity, googleFitService.getAccount(context)
+        )
+            .disableFit()
+            .addOnSuccessListener {
+                GoogleSignIn
+                    .getClient(activity, googleFitService.signInOptions)
+                    .revokeAccess()
+                onUnlinkDone(false, "")
+            }
+            .addOnFailureListener { e ->
+                onUnlinkDone(true, e.message.orEmpty())
+            }
     }
 }
