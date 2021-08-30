@@ -3,6 +3,7 @@ package com.tianhaoz95.lifestyletrackervoice_first.services
 import android.app.Activity.RESULT_CANCELED
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -28,6 +29,7 @@ import javax.inject.Singleton
 @Singleton
 class UserDataService @Inject constructor() {
     companion object {
+        private const val TAG: String = "UserDataService"
         private const val userDataCollection: String = "user_data"
         private const val RecordCollection: String = "tracking_data"
     }
@@ -69,7 +71,8 @@ class UserDataService @Inject constructor() {
         return user != null
     }
 
-    fun addRemoteLog(msg: String) {
+    fun addRemoteCrashLog(msg: String, tag: String = TAG) {
+        Log.e(tag, msg)
         FirebaseCrashlytics
             .getInstance()
             .log(msg)

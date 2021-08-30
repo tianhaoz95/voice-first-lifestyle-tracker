@@ -20,6 +20,10 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    companion object {
+        private const val TAG: String = "MainActivity"
+    }
+
     @Inject
     lateinit var userDataService: UserDataService
 
@@ -29,7 +33,6 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var localSettingsManager: LocalSettingsManager
     private val model: MainScreenViewModel by viewModels()
-    private val tag: String = "MainActivity"
     private val authenticateLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { initializeData() }
@@ -63,25 +66,27 @@ class MainActivity : AppCompatActivity() {
         model.updateShowReport(userDataService.isReportEnabled)
     }
 
+    // TODO: refactor this into a BLOC helper, e.g., featureLaunchController
     private fun maybeLaunchFeature(intent: Intent?) {
         if (
             intent == null ||
             intent.extras == null ||
             intent.extras?.get("featureParam") == null
         ) {
-            Log.i(tag, "featureParam not found in intent, skip.")
+            Log.i(TAG, "featureParam not found in intent, skip.")
             return
         }
         val featureId: String = intent.extras?.get("featureParam") as String
-        Log.i(tag, "Found featureId $featureId")
+        Log.i(TAG, "Found featureId $featureId")
         when (featureId) {
             "RECORD" -> addRecordHandler()
             "SETTINGS" -> settingsHandler()
             "REPORT" -> reportsHandler()
             else -> {
-                val msg = "$featureId is not a valid feature ID."
-                Log.e(tag, msg)
-                userDataService.addRemoteLog(msg)
+                userDataService.addRemoteCrashLog(
+                    "$featureId is not a valid feature ID.",
+                    TAG
+                )
             }
         }
     }

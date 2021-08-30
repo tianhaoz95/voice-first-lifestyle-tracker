@@ -15,6 +15,10 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class AuthenticationActivity : AppCompatActivity() {
+    companion object {
+        private const val TAG: String = "AuthenticationActivity"
+    }
+
     @Inject
     lateinit var userDataService: UserDataService
 
@@ -44,11 +48,11 @@ class AuthenticationActivity : AppCompatActivity() {
                 result.resultCode.toString(),
                 result.idpResponse.toString()
             )
-            userDataService.addRemoteLog(
+            userDataService.addRemoteCrashLog(
                 """
                     User login failed with result code ${result.resultCode} and
                     idpResponse ${result.idpResponse.toString()}.
-                """.trimIndent()
+                """.trimIndent(), TAG
             )
         }
     }
