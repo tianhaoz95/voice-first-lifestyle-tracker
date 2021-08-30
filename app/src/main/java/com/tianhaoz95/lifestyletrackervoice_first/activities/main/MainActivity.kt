@@ -1,6 +1,5 @@
 package com.tianhaoz95.lifestyletrackervoice_first.activities.main
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,13 +8,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import com.tianhaoz95.lifestyletrackervoice_first.activities.authentication.AuthenticationActivity
 import com.tianhaoz95.lifestyletrackervoice_first.activities.menu.MenuActivity
 import com.tianhaoz95.lifestyletrackervoice_first.activities.report.ShowReportActivity
 import com.tianhaoz95.lifestyletrackervoice_first.activities.settings.SettingsActivity
 import com.tianhaoz95.lifestyletrackervoice_first.composables.main.MainScreen
 import com.tianhaoz95.lifestyletrackervoice_first.models.MainScreenViewModel
 import com.tianhaoz95.lifestyletrackervoice_first.services.UserDataService
+import com.tianhaoz95.lifestyletrackervoice_first.utilities.EntrypointInitializer
+import com.tianhaoz95.lifestyletrackervoice_first.utilities.LocalSettingsManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -23,6 +23,10 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var userDataService: UserDataService
+    @Inject
+    lateinit var entrypointInitializer: EntrypointInitializer
+    @Inject
+    lateinit var localSettingsManager: LocalSettingsManager
     private val model: MainScreenViewModel by viewModels()
     private val tag: String = "MainActivity"
     private val authenticateLauncher = registerForActivityResult(
@@ -31,10 +35,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (!userDataService.isAuthenticated()) {
-            authenticateLauncher.launch(
-                Intent(this, AuthenticationActivity::class.java))
-        } else { initializeData() }
+        entrypointInitializer.initialize(
+            authenticateLauncher
+        ) { initializeData() }
         setContent {
             MainScreen(
                 viewModel = model,
@@ -52,20 +55,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeData() {
         userDataService.initialize(
-            getIsDeveloper = { getDeveloperIdentity() }
+            getIsDeveloper = { localSettingsManager.getIsDeveloper() }
         )
         maybeLaunchFeature(intent)
         model.updateIsReady(true)
         model.updateShowReport(userDataService.isReportEnabled)
-    }
-
-    private fun getDeveloperIdentity(): Boolean? {
-        val sharedPref = getPreferences(Context.MODE_PRIVATE)
-        return if (sharedPref.contains("isDeveloper")) {
-            sharedPref.getBoolean("isDeveloper", true)
-        } else {
-            null
-        }
     }
 
     private fun maybeLaunchFeature(intent: Intent?) {

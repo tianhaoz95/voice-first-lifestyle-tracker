@@ -21,7 +21,6 @@ fun DeveloperSettingsTitle() {
 
 @Composable
 fun DeveloperSettings(
-    viewModel: SettingsViewModel,
     onShouldReportCrashChange: (updatedValue: Boolean) -> Unit,
     onIsDeveloperChange: (newValue: Boolean) -> Unit,
 ) {
@@ -34,8 +33,8 @@ fun DeveloperSettings(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             DeveloperSettingsTitle()
-            IsDeveloper(viewModel, onIsDeveloperChange)
-            ReportCrashSetting(viewModel, onShouldReportCrashChange)
+            IsDeveloper(onIsDeveloperChange)
+            ReportCrashSetting(onShouldReportCrashChange)
         }
     }
 }

@@ -11,15 +11,16 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.tianhaoz95.lifestyletrackervoice_first.composables.settings.SettingsTitle
 import com.tianhaoz95.lifestyletrackervoice_first.models.SettingsViewModel
 
 @Composable
 fun ReportCrashSetting(
-    viewModel: SettingsViewModel,
-    onShouldReportCrashChange: (updatedValue: Boolean) -> Unit
+    onShouldReportCrashChange: (updatedValue: Boolean) -> Unit,
+    model: SettingsViewModel = viewModel()
 ) {
-    val shouldReportCrash: Boolean by viewModel
+    val shouldReportCrash: Boolean by model
         .shouldReportCrash.observeAsState(false)
 
     Row(

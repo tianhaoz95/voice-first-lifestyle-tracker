@@ -9,6 +9,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -32,8 +33,6 @@ class UserDataService @Inject constructor() {
     private var user: FirebaseUser? = Firebase.auth.currentUser
     private var firebaseAnalytics: FirebaseAnalytics = Firebase.analytics
     private var remoteConfig: FirebaseRemoteConfig = Firebase.remoteConfig
-    private var shouldReportCrash: Boolean = true
-    private var isDeveloper: Boolean = false
     var records: MutableList<HydrationRecord> = mutableListOf()
 
     val typeList: List<IntakeItemCategory> get() = listOf(
@@ -53,7 +52,7 @@ class UserDataService @Inject constructor() {
     val currentDaySummary get() = HydrationReport(records).toCurrentDaySummary()
 
     fun initialize(
-        getIsDeveloper: () -> Boolean?,
+        getIsDeveloper: () -> Boolean,
     ) {
         checkIsAuthenticated()
         initializeDeveloperIdentifier(getIsDeveloper)
@@ -71,21 +70,24 @@ class UserDataService @Inject constructor() {
         }
     }
 
-    private fun initializeDeveloperIdentifier(getIsDeveloper: () -> Boolean?) {
-        val isDebugBuild: Boolean = BuildConfig.DEBUG
-        isDeveloper = getIsDeveloper() ?: isDebugBuild
+    private fun initializeDeveloperIdentifier(getIsDeveloper: () -> Boolean) {
         firebaseAnalytics.setUserProperty(
             "Developer",
-            isDeveloper.toString()
+            getIsDeveloper().toString()
         )
     }
 
     fun updateIsDeveloper(newValue: Boolean) {
-        isDeveloper = newValue
         firebaseAnalytics.setUserProperty(
             "Developer",
             newValue.toString()
         )
+    }
+
+    fun updateShouldReportCrash(update: Boolean) {
+        FirebaseCrashlytics
+            .getInstance()
+            .setCrashlyticsCollectionEnabled(update)
     }
 
     private fun initializeRemoteConfig() {

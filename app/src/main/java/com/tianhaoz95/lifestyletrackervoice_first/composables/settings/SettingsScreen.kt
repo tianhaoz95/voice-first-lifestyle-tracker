@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.tianhaoz95.lifestyletrackervoice_first.composables.settings.account.AccountSettings
 import com.tianhaoz95.lifestyletrackervoice_first.composables.settings.developer.DeveloperSettings
 import com.tianhaoz95.lifestyletrackervoice_first.composables.settings.linking.AccountLinkingSettings
@@ -15,12 +16,11 @@ import com.tianhaoz95.lifestyletrackervoice_first.models.SettingsViewModel
 
 @Composable
 fun SettingsScreenContent(
-    viewModel: SettingsViewModel,
     onShouldReportCrashChange: (updatedValue: Boolean) -> Unit,
     onIsDeveloperChange: (newValue: Boolean) -> Unit,
     linkGoogleFitHandler: () -> Unit,
     unlinkGoogleFitHandler: () -> Unit,
-    onSignOut: () -> Unit,
+    onSignOut: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -38,12 +38,10 @@ fun SettingsScreenContent(
             )
         }
         AccountLinkingSettings(
-            viewModel,
             linkGoogleFitHandler,
             unlinkGoogleFitHandler
         )
         DeveloperSettings(
-            viewModel,
             onShouldReportCrashChange,
             onIsDeveloperChange)
         AccountSettings(onSignOut)
@@ -52,7 +50,6 @@ fun SettingsScreenContent(
 
 @Composable
 fun SettingsScreen(
-    viewModel: SettingsViewModel,
     onShouldReportCrashChange: (updatedValue: Boolean) -> Unit,
     onIsDeveloperChange: (newValue: Boolean) -> Unit,
     linkGoogleFitHandler: () -> Unit,
@@ -61,7 +58,6 @@ fun SettingsScreen(
 ) {
     AppTheme {
         SettingsScreenContent(
-            viewModel,
             onShouldReportCrashChange,
             onIsDeveloperChange,
             linkGoogleFitHandler,

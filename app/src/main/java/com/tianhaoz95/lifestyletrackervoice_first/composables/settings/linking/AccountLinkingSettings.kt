@@ -8,6 +8,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.tianhaoz95.lifestyletrackervoice_first.models.SettingsViewModel
 
 @Composable
@@ -17,11 +18,11 @@ fun AccountLinkingSettingsTitle() {
 
 @Composable
 fun LinkGoogleFitSection(
-    viewModel: SettingsViewModel,
     linkGoogleFitHandler: () -> Unit,
     unlinkGoogleFitHandler: () -> Unit,
+    model: SettingsViewModel = viewModel()
 ) {
-    val isGoogleFitLinked: Boolean by viewModel
+    val isGoogleFitLinked: Boolean by model
         .isGoogleFitLinked.observeAsState(false)
 
     Row(
@@ -47,13 +48,9 @@ fun LinkGoogleFitSection(
 
 @Composable
 fun AccountLinkingSettings(
-    viewModel: SettingsViewModel,
     linkGoogleFitHandler: () -> Unit,
     unlinkGoogleFitHandler: () -> Unit
 ) {
-    val isGoogleFitLinked: Boolean by viewModel
-        .isGoogleFitLinked.observeAsState(false)
-
     Card(
         modifier = Modifier.padding(Dp(4.0F)),
         elevation = Dp(2.0F)
@@ -64,7 +61,6 @@ fun AccountLinkingSettings(
         ) {
             AccountLinkingSettingsTitle()
             LinkGoogleFitSection(
-                viewModel,
                 linkGoogleFitHandler,
                 unlinkGoogleFitHandler
             )

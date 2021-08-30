@@ -1,6 +1,5 @@
 package com.tianhaoz95.lifestyletrackervoice_first.activities.record
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +15,7 @@ import com.tianhaoz95.lifestyletrackervoice_first.models.AddRecordViewModel
 import com.tianhaoz95.lifestyletrackervoice_first.services.integrations.GoogleFitService
 import com.tianhaoz95.lifestyletrackervoice_first.services.UserDataService
 import com.tianhaoz95.lifestyletrackervoice_first.types.HydrationRecord
+import com.tianhaoz95.lifestyletrackervoice_first.utilities.LocalSettingsManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -27,10 +27,9 @@ class AddActivity : AppCompatActivity() {
         private const val TAG: String = "AddActivity"
     }
 
-    @Inject
-    lateinit var userDataService: UserDataService
-    @Inject
-    lateinit var googleFitService: GoogleFitService
+    @Inject lateinit var localSettingsManager: LocalSettingsManager
+    @Inject lateinit var userDataService: UserDataService
+    @Inject lateinit var googleFitService: GoogleFitService
     private val model: AddRecordViewModel by viewModels()
     private val authenticateLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -52,7 +51,7 @@ class AddActivity : AppCompatActivity() {
 
     private fun initializeData() {
         userDataService.initialize(
-            getIsDeveloper = { getDeveloperIdentity() }
+            getIsDeveloper = { localSettingsManager.getIsDeveloper() }
         )
         lifecycleScope.launch {
             val record: HydrationRecord = getRecord()
@@ -60,15 +59,6 @@ class AddActivity : AppCompatActivity() {
             maybeAddRecordToGoogleFit(record)
             delay(3000L)
             finish()
-        }
-    }
-
-    private fun getDeveloperIdentity(): Boolean? {
-        val sharedPref = getPreferences(Context.MODE_PRIVATE)
-        return if (sharedPref.contains("isDeveloper")) {
-            sharedPref.getBoolean("isDeveloper", true)
-        } else {
-            null
         }
     }
 

@@ -12,14 +12,15 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.tianhaoz95.lifestyletrackervoice_first.models.SettingsViewModel
 
 @Composable
 fun IsDeveloper(
-    viewModel: SettingsViewModel,
-    onIsDeveloperChange: (newValue: Boolean) -> Unit
+    onIsDeveloperChange: (newValue: Boolean) -> Unit,
+    model: SettingsViewModel = viewModel()
 ) {
-    val isDeveloper: Boolean by viewModel
+    val isDeveloper: Boolean by model
         .isDeveloper.observeAsState(false)
 
     Row(
