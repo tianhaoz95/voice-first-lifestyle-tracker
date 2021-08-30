@@ -7,7 +7,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tianhaoz95.lifestyletrackervoice_first.activities.menu.MenuActivity
 import com.tianhaoz95.lifestyletrackervoice_first.activities.report.ShowReportActivity
 import com.tianhaoz95.lifestyletrackervoice_first.activities.settings.SettingsActivity
@@ -23,8 +22,10 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var userDataService: UserDataService
+
     @Inject
     lateinit var entrypointInitializer: EntrypointInitializer
+
     @Inject
     lateinit var localSettingsManager: LocalSettingsManager
     private val model: MainScreenViewModel by viewModels()
@@ -78,17 +79,11 @@ class MainActivity : AppCompatActivity() {
             "SETTINGS" -> settingsHandler()
             "REPORT" -> reportsHandler()
             else -> {
-                val msg: String = "$featureId is not a valid feature ID."
+                val msg = "$featureId is not a valid feature ID."
                 Log.e(tag, msg)
-                logFeatureLaunchFailure(msg)
+                userDataService.addRemoteLog(msg)
             }
         }
-    }
-
-    private fun logFeatureLaunchFailure(msg: String) {
-        FirebaseCrashlytics
-            .getInstance()
-            .log(msg)
     }
 
     private fun addRecordHandler() {

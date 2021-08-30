@@ -4,7 +4,6 @@ import android.app.Activity.RESULT_CANCELED
 import android.content.Context
 import android.content.Intent
 import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.BuildConfig
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.auth.FirebaseUser
@@ -22,7 +21,6 @@ import com.tianhaoz95.lifestyletrackervoice_first.types.HydrationRecord
 import com.tianhaoz95.lifestyletrackervoice_first.types.HydrationReport
 import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemCategory
 import com.tianhaoz95.lifestyletrackervoice_first.types.IntakeItemUnit
-import java.lang.RuntimeException
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -40,18 +38,20 @@ class UserDataService @Inject constructor() {
     private var remoteConfig: FirebaseRemoteConfig = Firebase.remoteConfig
     var records: MutableList<HydrationRecord> = mutableListOf()
 
-    val typeList: List<IntakeItemCategory> get() = listOf(
-        IntakeItemCategory.Soda,
-        IntakeItemCategory.Coffee,
-        IntakeItemCategory.Water,
-    )
-    val unitList: List<IntakeItemUnit> get() = listOf(
-        IntakeItemUnit.Liter,
-        IntakeItemUnit.Milliliter,
-        IntakeItemUnit.Can,
-        IntakeItemUnit.Bottle,
-        IntakeItemUnit.Cup,
-    )
+    val typeList: List<IntakeItemCategory>
+        get() = listOf(
+            IntakeItemCategory.Soda,
+            IntakeItemCategory.Coffee,
+            IntakeItemCategory.Water,
+        )
+    val unitList: List<IntakeItemUnit>
+        get() = listOf(
+            IntakeItemUnit.Liter,
+            IntakeItemUnit.Milliliter,
+            IntakeItemUnit.Can,
+            IntakeItemUnit.Bottle,
+            IntakeItemUnit.Cup,
+        )
 
     val recordCount get() = records.size
     val currentDaySummary get() = HydrationReport(records).toCurrentDaySummary()
@@ -69,17 +69,16 @@ class UserDataService @Inject constructor() {
         return user != null
     }
 
+    fun addRemoteLog(msg: String) {
+        FirebaseCrashlytics
+            .getInstance()
+            .log(msg)
+    }
+
     private fun checkIsAuthenticated() {
         if (!isAuthenticated()) {
             throw RuntimeException("User not signed in")
         }
-    }
-
-    private fun initializeDeveloperIdentifier(getIsDeveloper: () -> Boolean) {
-        firebaseAnalytics.setUserProperty(
-            "Developer",
-            getIsDeveloper().toString()
-        )
     }
 
     fun updateIsDeveloper(newValue: Boolean) {
@@ -104,8 +103,10 @@ class UserDataService @Inject constructor() {
         remoteConfig.fetchAndActivate()
     }
 
-    val isReportEnabled: Boolean get() = remoteConfig.getBoolean(
-        "show_report_in_menu")
+    val isReportEnabled: Boolean
+        get() = remoteConfig.getBoolean(
+            "show_report_in_menu"
+        )
 
     fun getSignInIntent(): Intent {
         val providers = arrayListOf(
@@ -125,7 +126,8 @@ class UserDataService @Inject constructor() {
             .signOut(context)
             .addOnCompleteListener {
                 val intent = Intent(
-                    context, AuthenticationActivity::class.java)
+                    context, AuthenticationActivity::class.java
+                )
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 context.startActivity(intent)
                 onComplete()
@@ -174,13 +176,27 @@ class UserDataService @Inject constructor() {
                         .data?.get("timestamp")
                         .toString()
                         .toLong()
-                    records.add(HydrationRecord(type, quantity, unit, timestamp))
+                    records.add(
+                        HydrationRecord(
+                            type,
+                            quantity,
+                            unit,
+                            timestamp
+                        )
+                    )
                 }
                 onSuccess()
             }
             .addOnFailureListener { e ->
                 onError(RESULT_CANCELED, e.message.orEmpty())
             }
+    }
+
+    private fun initializeDeveloperIdentifier(getIsDeveloper: () -> Boolean) {
+        firebaseAnalytics.setUserProperty(
+            "Developer",
+            getIsDeveloper().toString()
+        )
     }
 
     private fun getUserTrackingDataRef(uid: String): CollectionReference {

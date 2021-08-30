@@ -15,7 +15,7 @@ import com.tianhaoz95.lifestyletrackervoice_first.models.LoginScreenModel
 
 @Composable
 fun LoginButton(
-    model: LoginScreenModel = viewModel()
+    onSignIn: () -> Unit
 ) {
     val topLeftCurveRadius: Float = 16.0F
     Row(
@@ -24,7 +24,7 @@ fun LoginButton(
     ) {
         Spacer(modifier = Modifier.weight(1.0F))
         OutlinedButton(
-            onClick = { model.launchSignIn() },
+            onClick = { onSignIn() },
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(2.0F),

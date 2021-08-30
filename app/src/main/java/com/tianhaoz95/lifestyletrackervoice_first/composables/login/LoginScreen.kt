@@ -13,6 +13,7 @@ import com.tianhaoz95.lifestyletrackervoice_first.models.LoginScreenModel
 
 @Composable
 fun LoginScreenContent(
+    onSignIn: () -> Unit,
     model: LoginScreenModel = viewModel()
 ) {
     val status: String by model.status.observeAsState("")
@@ -49,14 +50,14 @@ fun LoginScreenContent(
                 .weight(1.0F),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            LoginButton()
+            LoginButton(onSignIn)
         }
     }
 }
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(onSignIn: () -> Unit) {
     AppTheme {
-        LoginScreenContent()
+        LoginScreenContent(onSignIn)
     }
 }
